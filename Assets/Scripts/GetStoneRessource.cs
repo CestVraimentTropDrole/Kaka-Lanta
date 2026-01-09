@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WoodResource : MonoBehaviour
+public class StoneResource : MonoBehaviour
 {
     private bool playerInZone = false;
 
@@ -9,7 +9,7 @@ public class WoodResource : MonoBehaviour
         // Si le joueur est dans la zone ET que le bouton est pressé
         if (playerInZone && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
-            HarvestWood();
+            HarvestStone();
         }
     }
 
@@ -18,7 +18,7 @@ public class WoodResource : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = true;
-            Debug.Log("→ Joueur près du bois: " + gameObject.name);
+            Debug.Log("→ Joueur près du stone: " + gameObject.name);
         }
     }
 
@@ -27,11 +27,11 @@ public class WoodResource : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = false;
-            Debug.Log("← Joueur éloigné du bois: " + gameObject.name);
+            Debug.Log("← Joueur éloigné du stone: " + gameObject.name);
         }
     }
 
-    private void HarvestWood()
+    private void HarvestStone()
     {
         if (Inventory.instance == null)
         {
@@ -39,16 +39,16 @@ public class WoodResource : MonoBehaviour
             return;
         }
 
-        // BONUS si hache (objet 1)
-        if (RFIDManager.instance.HasAxe())
+        // BONUS si pioche (objet 1)
+        if (RFIDManager.instance.HasPioche())
         {
-            Inventory.instance.AddWood(2);
-            Debug.Log("🪵 Bois +2 (hache) depuis " + gameObject.name);
+            Inventory.instance.AddStone(2);
+            Debug.Log("🪵 Pierre +2 (pioche) depuis " + gameObject.name);
         }
         else
         {
-            Inventory.instance.AddWood(1);
-            Debug.Log("🪵 Bois +1 depuis " + gameObject.name);
+            Inventory.instance.AddStone(1);
+            Debug.Log("🪵 Pierre +1 depuis " + gameObject.name);
         }
 
         // Détruire l'objet bois après récolte
