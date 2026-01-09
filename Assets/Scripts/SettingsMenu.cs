@@ -4,12 +4,29 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown;
     Resolution[] resolutions;
+
+    public Button firstButton;
+    public GameObject parentMenu;
+
+    public void OnEnable()
+    {
+        if (firstButton != null)
+        {
+            firstButton.Select();
+        }
+    }
+
+    public void OnDisable() {
+        parentMenu.SetActive(true);
+        parentMenu.GetComponent<MainMenu>().firstButton.Select();
+    }
 
     public void Start()
     {

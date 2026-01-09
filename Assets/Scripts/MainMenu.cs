@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public string levelToLoad;
     public GameObject settingsWindow;
+    public Button firstButton;
 
     void Start()
     {
