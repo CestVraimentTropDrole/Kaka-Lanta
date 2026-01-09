@@ -4,6 +4,8 @@ using System;
 
 public class RFIDManager : MonoBehaviour
 {
+    public static RFIDManager instance; 
+
     [Header("Arduino RFID")]
     [SerializeField] private string portRFID = "COM6";
 
@@ -15,58 +17,166 @@ public class RFIDManager : MonoBehaviour
     private SerialPort serialRFID;
     private SerialPort serialBouton;
 
+    private string lastRFID = "";
+    private bool buttonJustPressed = false;
+    
+    private bool rfidConnected = false;
+    private bool boutonConnected = false;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
     void Start()
     {
+        // Tentative de connexion RFID
         try
         {
             serialRFID = new SerialPort(portRFID, baudRate);
-            serialBouton = new SerialPort(portBouton, baudRate);
-
             serialRFID.ReadTimeout = 100;
-            serialBouton.ReadTimeout = 100;
-
             serialRFID.Open();
-            serialBouton.Open();
-
-            Debug.Log("Ports série ouverts avec succès");
+            rfidConnected = true;
+            Debug.Log("✓ RFID connecté sur " + portRFID);
         }
         catch (Exception e)
         {
-            Debug.LogError("Erreur ouverture port série : " + e.Message);
+            Debug.LogError("✗ Erreur RFID sur " + portRFID + ": " + e.Message);
+            Debug.LogError("Vérifiez que le port est libre (fermez Arduino IDE/Serial Monitor)");
+        }
+
+        // Tentative de connexion Bouton
+        try
+        {
+            serialBouton = new SerialPort(portBouton, baudRate);
+            serialBouton.ReadTimeout = 100;
+            serialBouton.Open();
+            boutonConnected = true;
+            Debug.Log("✓ Bouton connecté sur " + portBouton);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("✗ Erreur Bouton sur " + portBouton + ": " + e.Message);
+            Debug.LogError("Vérifiez que le port est libre (fermez Arduino IDE/Serial Monitor)");
+        }
+
+        if (!rfidConnected || !boutonConnected)
+        {
+            Debug.LogWarning("⚠ Certains ports ne sont pas connectés. Le système fonctionnera en mode dégradé.");
         }
     }
 
     void Update()
     {
-        // RFID
-        if (serialRFID != null && serialRFID.IsOpen && serialRFID.BytesToRead > 0)
+        buttonJustPressed = false; // Reset chaque frame
+
+        // ---------- RFID ----------
+        if (rfidConnected && serialRFID.IsOpen)
         {
             try
             {
-                string rfidData = serialRFID.ReadLine();
-                Debug.Log("RFID: " + rfidData);
+                if (serialRFID.BytesToRead > 0)
+                {
+                    lastRFID = serialRFID.ReadLine().Trim();
+                    Debug.Log("RFID: " + lastRFID);
+                }
             }
-            catch { }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Erreur lecture RFID: " + e.Message);
+            }
         }
 
-        // Bouton
-        if (serialBouton != null && serialBouton.IsOpen && serialBouton.BytesToRead > 0)
+        // ---------- BOUTON ----------
+        if (boutonConnected && serialBouton.IsOpen)
         {
             try
             {
-                string boutonData = serialBouton.ReadLine();
-                Debug.Log("Bouton: " + boutonData);
+                if (serialBouton.BytesToRead > 0)
+                {
+                    string data = serialBouton.ReadLine().Trim();
+                    Debug.Log("Bouton: " + data);
+
+                    if (data == "BUTTON PRESSED")
+                    {
+                        buttonJustPressed = true;
+                    }
+                }
             }
-            catch { }
+            catch (Exception e)
+            {
+                Debug.LogWarning("Erreur lecture Bouton: " + e.Message);
+            }
         }
+
+        // TEST CLAVIER (pour tester sans Arduino)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Test clavier: Espace pressé");
+            buttonJustPressed = true;
+        }
+    }
+
+    // Méthodes publiques pour que les objets bois puissent vérifier l'état
+    public bool IsButtonPressed()
+    {
+        return buttonJustPressed;
+    }
+
+    public bool HasAxe()
+    {
+        return lastRFID.Contains("Objet 1");
+    }
+
+    public string GetLastRFID()
+    {
+        return lastRFID;
+    }
+
+    void OnApplicationQuit()
+    {
+        CloseSerialPorts();
     }
 
     void OnDestroy()
     {
-        if (serialRFID != null && serialRFID.IsOpen)
-            serialRFID.Close();
+        CloseSerialPorts();
+    }
 
-        if (serialBouton != null && serialBouton.IsOpen)
-            serialBouton.Close();
+    void OnDisable()
+    {
+        CloseSerialPorts();
+    }
+
+    private void CloseSerialPorts()
+    {
+        try
+        {
+            if (serialRFID != null && serialRFID.IsOpen)
+            {
+                serialRFID.Close();
+                Debug.Log("Port RFID fermé");
+            }
+        }
+        catch { }
+
+        try
+        {
+            if (serialBouton != null && serialBouton.IsOpen)
+            {
+                serialBouton.Close();
+                Debug.Log("Port Bouton fermé");
+            }
+        }
+        catch { }
     }
 }

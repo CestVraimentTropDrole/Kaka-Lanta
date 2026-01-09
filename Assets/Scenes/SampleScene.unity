@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 139298642}
   - component: {fileID: 139298641}
   - component: {fileID: 139298640}
-  - component: {fileID: 139298639}
+  - component: {fileID: 139298643}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Untagged
@@ -138,18 +138,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &139298639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139298638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &139298640
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -266,6 +254,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 243240488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &139298643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139298638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &164078052
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,8 +602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f31ba749f90d5ec4f9372eb8562c0e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: COM8
-  baudRate: 9600
 --- !u!1 &562650073
 GameObject:
   m_ObjectHideFlags: 0
@@ -17792,6 +17790,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767234309}
   m_CullTransparentMesh: 1
+--- !u!1 &780980978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780980980}
+  - component: {fileID: 780980979}
+  m_Layer: 0
+  m_Name: RFIDmanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &780980979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780980978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c80bcbd4f5389f4cb8c47949416bcee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portRFID: COM6
+  portBouton: COM8
+  baudRate: 9600
+--- !u!4 &780980980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780980978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783247726
 GameObject:
   m_ObjectHideFlags: 0
@@ -22227,3 +22272,4 @@ SceneRoots:
   - {fileID: 902220329}
   - {fileID: 994553035}
   - {fileID: 243240488}
+  - {fileID: 780980980}
