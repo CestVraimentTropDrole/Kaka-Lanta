@@ -137,6 +137,16 @@ public class RFIDManager : MonoBehaviour
         return lastRFID.Contains("Objet 1");
     }
 
+     public bool HasPioche()
+    {
+        return lastRFID.Contains("Objet 2");
+    }
+
+    public bool HasHeart()
+    {
+        return lastRFID.Contains("Objet 4");
+    }
+
     public string GetLastRFID()
     {
         return lastRFID;
