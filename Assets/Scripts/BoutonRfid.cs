@@ -50,8 +50,7 @@ public class RFIDManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("✗ Erreur RFID sur " + portRFID + ": " + e.Message);
-            Debug.LogError("Vérifiez que le port est libre (fermez Arduino IDE/Serial Monitor)");
+            
         }
 
         // Tentative de connexion Bouton
@@ -65,8 +64,7 @@ public class RFIDManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("✗ Erreur Bouton sur " + portBouton + ": " + e.Message);
-            Debug.LogError("Vérifiez que le port est libre (fermez Arduino IDE/Serial Monitor)");
+    
         }
 
         if (!rfidConnected || !boutonConnected)
