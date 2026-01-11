@@ -75,7 +75,7 @@ public class RFIDManager : MonoBehaviour
 
     void Update()
     {
-        buttonJustPressed = false; // Reset chaque frame
+        buttonJustPressed = false;
 
         // ---------- RFID ----------
         if (rfidConnected && serialRFID.IsOpen)
@@ -116,15 +116,19 @@ public class RFIDManager : MonoBehaviour
             }
         }
 
-        // TEST CLAVIER (pour tester sans Arduino)
+        // TEST CLAVIER (sans arduino)
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Test clavier: Espace pressé");
             buttonJustPressed = true;
         }
+
+         if (Input.GetKeyDown(KeyCode.P))
+            {
+                lastRFID = "Objet 2";
+            }
     }
 
-    // Méthodes publiques pour que les objets bois puissent vérifier l'état
     public bool IsButtonPressed()
     {
         return buttonJustPressed;
@@ -135,7 +139,7 @@ public class RFIDManager : MonoBehaviour
         return lastRFID.Contains("Objet 1");
     }
 
-     public bool HasPioche()
+    public bool HasPioche()
     {
         return lastRFID.Contains("Objet 2");
     }

@@ -1,18 +1,20 @@
 using UnityEngine;
 
-public class StoneResource : MonoBehaviour
+public class StonePickup : MonoBehaviour
 {
+    [Header("Configuration")]
+    [SerializeField] private int stoneValue = 1;
+
     private bool playerInZone = false;
 
     void Update()
     {
-        // Si le joueur est dans la zone ET que le bouton est pressé
         if (playerInZone && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
-            HarvestStone();
+            PickupStone();
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -31,14 +33,15 @@ public class StoneResource : MonoBehaviour
         }
     }
 
-    private void HarvestStone()
+    private void PickupStone()
     {
         if (Inventory.instance == null)
         {
             Debug.LogError("Inventory.instance est null!");
             return;
         }
-            Inventory.instance.AddStone(1);
+
+        Inventory.instance.AddStone(stoneValue);
 
         Destroy(gameObject);
     }
