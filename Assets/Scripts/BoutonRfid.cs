@@ -123,10 +123,15 @@ public class RFIDManager : MonoBehaviour
             buttonJustPressed = true;
         }
 
-         if (Input.GetKeyDown(KeyCode.P))
-            {
-                lastRFID = "Objet 2";
-            }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            lastRFID = "Objet 2";
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            lastRFID = "Objet 1";
+        }
     }
 
     public bool IsButtonPressed()
