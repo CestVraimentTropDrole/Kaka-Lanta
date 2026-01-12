@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Kaka-Lanta.sln"
+    "dotnet.defaultSolution": "kaka_lanta.sln"
 }
