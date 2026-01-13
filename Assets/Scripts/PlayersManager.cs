@@ -17,6 +17,11 @@ public class PlayersManager : MonoBehaviour
 
     public void Start()
     {
+        if (GameData.instance != null) {
+            numberPlayers = GameData.instance.numberPlayers;
+            Debug.Log("Nombre de joueurs récupéré : " + numberPlayers);
+        }
+
         for (int i = 0; i < numberPlayers; i++)
         {
             GameObject player = Instantiate(playerPrefab, spawnPoints.position, Quaternion.identity);
