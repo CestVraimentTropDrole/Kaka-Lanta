@@ -22,6 +22,9 @@ public class PlayersManager : MonoBehaviour
             GameObject player = Instantiate(playerPrefab, spawnPoints.position, Quaternion.identity);
             player.name = "Player " + (i + 1);
 
+            PlayerMovement movement = player.GetComponent<PlayerMovement>();
+            if (movement != null) { movement.playerNumber = i + 1;}
+
             SpriteRenderer sprite = player.GetComponent<SpriteRenderer>();
             sprite.color = playerColors[i];
 
