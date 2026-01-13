@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 623769692550406532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5478709, y: 0.08081363, z: -3.1654487}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 3020222709930973258, guid: 254ec1376072f5243964deb1d874636d, type: 3}
 --- !u!114 &5682572221066317694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,5 +207,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHunger: 6
   currentHunger: 0
-  hungerBar: {fileID: 0}
+  hungerBar: {fileID: 4362944082119943686, guid: a1fed4f3d6fbd44498a4463b439725e8, type: 3}
   starvationDamage: 20
