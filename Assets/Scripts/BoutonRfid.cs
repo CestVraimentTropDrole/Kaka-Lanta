@@ -132,6 +132,11 @@ public class RFIDManager : MonoBehaviour
         {
             lastRFID = "Objet 1";
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            lastRFID = "Objet 3";
+        }
     }
 
     public bool IsButtonPressed()
@@ -152,6 +157,11 @@ public class RFIDManager : MonoBehaviour
     public bool HasHeart()
     {
         return lastRFID.Contains("Objet 4");
+    }
+
+    public bool HasFishingRod()
+    {
+        return lastRFID.Contains("Objet 3");
     }
 
     public string GetLastRFID()

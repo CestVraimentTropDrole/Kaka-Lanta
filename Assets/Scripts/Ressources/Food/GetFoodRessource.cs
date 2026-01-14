@@ -39,18 +39,10 @@ public class FoodResource : MonoBehaviour
         {
             return;
         }
+        
+        playerHunger.GainHungerFromFood(1);
 
 
-        // if (RFIDManager.instance.HasFishingRod())
-        // {
-        //     playerHunger.GainHungerFromFood(2);
-        // }
-        // else
-        // {
-            playerHunger.GainHungerFromFood(1);
-        // }
-
-        // Détruire l'objet nourriture après récolte
         Destroy(gameObject);
     }
 }
