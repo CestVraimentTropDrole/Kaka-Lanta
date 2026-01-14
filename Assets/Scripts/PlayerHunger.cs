@@ -22,6 +22,8 @@ public class PlayerHunger : MonoBehaviour
         {
             LoseHunger(1);
         }
+
+        
     }
 
     void LoseHunger(int hunger)
@@ -36,14 +38,30 @@ public class PlayerHunger : MonoBehaviour
 
         if (currentHunger == 0)
         {
-            Debug.Log("Le joueur subit des dégâts de famine !");
             ApplyStarvationDamage();
         }
+    }
+
+
+    void GainHunger(int hunger)
+    {
+        currentHunger += hunger;
+        if (currentHunger > maxHunger)
+        {
+            currentHunger = maxHunger;
+        }
+
+        hungerBar.SetHunger(currentHunger);
     }
 
     public void LoseHungerFromTurn(int hunger)
     {
         LoseHunger(hunger);
+    }
+
+    public void GainHungerFromFood(int hunger)
+    {
+        GainHunger(hunger);
     }
 
     private void ApplyStarvationDamage()
@@ -52,7 +70,6 @@ public class PlayerHunger : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamageFromStarvation(starvationDamage);
-            Debug.Log($"💀 Famine ! -{starvationDamage} PV");
         }
     }
 }

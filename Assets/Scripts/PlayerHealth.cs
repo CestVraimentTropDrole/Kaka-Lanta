@@ -15,11 +15,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(20);
-        }
-
         if(RFIDManager.instance != null && RFIDManager.instance.HasHeart())
         {
             Heal(20);
