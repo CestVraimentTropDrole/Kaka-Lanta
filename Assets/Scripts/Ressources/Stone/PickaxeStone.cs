@@ -6,7 +6,7 @@ public class PickaxeStone : MonoBehaviour
     [SerializeField] private GameObject stonePrefab; // Le prefab de petite pierre à ramasser
     [SerializeField] private int minStoneDropped = 2;
     [SerializeField] private int maxStoneDropped = 4;
-    [SerializeField] private float dropRadius = 1f; // Rayon autour du rocher où les pierres tombent
+    [SerializeField] private float dropRadius = 1f;
     
     private bool playerInZone = false;
 
@@ -24,7 +24,6 @@ public class PickaxeStone : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = true;
-            Debug.Log("→ Joueur près du rocher: " + gameObject.name);
         }
     }
 
@@ -33,29 +32,23 @@ public class PickaxeStone : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = false;
-            Debug.Log("← Joueur éloigné du rocher: " + gameObject.name);
         }
     }
 
     private void BreakStone()
     {
-        // Vérifier si le joueur a une pioche
         if (RFIDManager.instance == null || !RFIDManager.instance.HasPioche())
         {
-            Debug.Log("⛏️ Vous avez besoin d'une pioche pour casser ce rocher !");
             return;
         }
 
-        // Vérifier que le prefab existe
         if (stonePrefab == null)
         {
-            Debug.LogError("Le prefab de pierre n'est pas assigné !");
             return;
         }
 
         // Déterminer combien de pierres vont tomber
         int stoneAmount = Random.Range(minStoneDropped, maxStoneDropped + 1);
-        Debug.Log($"🪨 Rocher cassé ! {stoneAmount} pierres tombent");
 
         // Faire spawn les pierres autour du rocher
         for (int i = 0; i < stoneAmount; i++)
@@ -68,7 +61,6 @@ public class PickaxeStone : MonoBehaviour
             Instantiate(stonePrefab, spawnPosition, Quaternion.identity);
         }
 
-        // Détruire le gros rocher
         Destroy(gameObject);
     }
 }

@@ -46,7 +46,6 @@ public class RFIDManager : MonoBehaviour
             serialRFID.ReadTimeout = 100;
             serialRFID.Open();
             rfidConnected = true;
-            Debug.Log("✓ RFID connecté sur " + portRFID);
         }
         catch (Exception e)
         {
@@ -60,16 +59,10 @@ public class RFIDManager : MonoBehaviour
             serialBouton.ReadTimeout = 100;
             serialBouton.Open();
             boutonConnected = true;
-            Debug.Log("✓ Bouton connecté sur " + portBouton);
         }
         catch (Exception e)
         {
     
-        }
-
-        if (!rfidConnected || !boutonConnected)
-        {
-            Debug.LogWarning("⚠ Certains ports ne sont pas connectés. Le système fonctionnera en mode dégradé.");
         }
     }
 

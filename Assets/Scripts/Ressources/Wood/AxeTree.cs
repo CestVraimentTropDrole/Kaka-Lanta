@@ -36,13 +36,11 @@ public class AxeTree : MonoBehaviour
 
     private void BreakTree()
     {
-        // Vérifier si le joueur a une hâche
         if (RFIDManager.instance == null || !RFIDManager.instance.HasAxe())
         {
             return;
         }
 
-        // Vérifier que le prefab existe
         if (treePrefab == null)
         {
             return;

@@ -18,7 +18,6 @@ public class StoneResource : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = true;
-            Debug.Log("→ Joueur près du stone: " + gameObject.name);
         }
     }
 
@@ -27,7 +26,6 @@ public class StoneResource : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInZone = false;
-            Debug.Log("← Joueur éloigné du stone: " + gameObject.name);
         }
     }
 
@@ -35,7 +33,6 @@ public class StoneResource : MonoBehaviour
     {
         if (Inventory.instance == null)
         {
-            Debug.LogError("Inventory.instance est null!");
             return;
         }
             Inventory.instance.AddStone(1);
