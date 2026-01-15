@@ -1,15 +1,19 @@
 using UnityEngine;
 using TMPro;
 
-public class BuildingGhost : MonoBehaviour
+public class BuildCampfire : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private int woodRequired = 10;
+    [SerializeField] private int woodRequired = 5;
+
+    [SerializeField] private int stoneRequired = 3;
     [SerializeField] private GameObject finalBuilding; // Le bâtiment final à activer
     
     [Header("UI")]
     [SerializeField] private GameObject uiPanel;
-    [SerializeField] private TMP_Text costText;
+    [SerializeField] private TMP_Text costWoodText;
+
+    [SerializeField] private TMP_Text costStoneText;
     
     [Header("Visuel")]
     [SerializeField] private Color canBuildColor = new Color(0, 1, 0, 0.5f); // Vert transparent
@@ -34,10 +38,13 @@ public class BuildingGhost : MonoBehaviour
         // Désactiver le bâtiment final au départ
         if (finalBuilding != null)
             finalBuilding.SetActive(false);
-            
+
         // Mettre à jour le texte du coût
-        if (costText != null)
-            costText.text = $"Coût : {woodRequired}";
+        if (costWoodText != null)
+            costWoodText.text = $"Coût : {woodRequired}";
+
+        if (costStoneText != null)
+            costStoneText.text = $"Coût : {stoneRequired}";
     }
 
     void Update()
@@ -50,7 +57,6 @@ public class BuildingGhost : MonoBehaviour
 
         // Mettre à jour la couleur du fantôme
         UpdateGhostColor(canBuild);
-        
 
         // Construire si le joueur appuie sur E et a assez de bois
         if (canBuild && Input.GetKeyDown(KeyCode.E))
@@ -91,8 +97,9 @@ public class BuildingGhost : MonoBehaviour
 
         // Retirer le bois de l'inventaire
         Inventory.instance.RemoveWood(woodRequired);
+
+        Inventory.instance.RemoveStone(stoneRequired);
         
-        Debug.Log($"🏠 Construction terminée ! -{woodRequired} bois");
         
         // Activer le bâtiment final
         if (finalBuilding != null)
