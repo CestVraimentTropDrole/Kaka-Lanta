@@ -18,6 +18,7 @@ public class TurnSystem : MonoBehaviour
     private int currentTurn = 1;
     private float currentTurnTime;
     private bool turnActive = true;
+    private PlayersManager manager;
 
     void Awake()
     {
@@ -33,6 +34,10 @@ public class TurnSystem : MonoBehaviour
 
     void Start()
     {
+        manager = FindFirstObjectByType<PlayersManager>();
+
+        if (manager == null) { Debug.LogError("PlayersManager non trouvé dans la scène !"); }
+
         StartNewTurn();
     }
 
@@ -46,6 +51,7 @@ public class TurnSystem : MonoBehaviour
 
         if (currentTurnTime <= 0)
         {
+            manager.NextPlayer();
             EndTurn();
         }
     }
