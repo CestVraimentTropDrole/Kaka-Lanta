@@ -10,6 +10,8 @@ public class BuildingGhost : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private TMP_Text costText;
+    [SerializeField] private TMP_Text statusText;
+    [SerializeField] private SpriteRenderer Wood;
     
     [Header("Visuel")]
     [SerializeField] private Color canBuildColor = new Color(0, 1, 0, 0.5f); // Vert transparent
@@ -51,6 +53,14 @@ public class BuildingGhost : MonoBehaviour
         // Mettre à jour la couleur du fantôme
         UpdateGhostColor(canBuild);
         
+        // Mettre à jour le texte de statut
+        if (statusText != null)
+        {
+            if (canBuild)
+                statusText.text = "[E] pour construire";
+            else
+                statusText.text = " ";
+        }
 
         // Construire si le joueur appuie sur E et a assez de bois
         if (canBuild && Input.GetKeyDown(KeyCode.E))

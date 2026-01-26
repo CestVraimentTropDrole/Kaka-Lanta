@@ -4,15 +4,36 @@ using UnityEngine.UI;
 public class HungerBar : MonoBehaviour
 {
     public Slider slider;
+    private PlayersManager manager;
 
-    public void SetMaxHunger(int hunger)
+    void Start()
     {
-        slider.maxValue = hunger;
-        slider.value = hunger;
+        manager = FindFirstObjectByType<PlayersManager>();
+        UpdateHungerBar();
     }
 
-    public void SetHunger(int hunger)
+    void Update()
     {
-        slider.value = hunger;
+        UpdateHungerBar();
+    }
+
+    void UpdateHungerBar()
+    {
+        if (manager == null) return;
+
+        // Récupère le joueur actif
+        GameObject activePlayer = manager.GetActivePlayer();
+        
+        if (activePlayer == null) return;
+
+        // Récupère le script PlayerHunger du joueur actif
+        PlayerHunger playerHunger = activePlayer.GetComponent<PlayerHunger>();
+        
+        if (playerHunger != null)
+        {
+            // Met à jour la barre avec la faim du joueur actif
+            slider.maxValue = playerHunger.maxHunger;
+            slider.value = playerHunger.currentHunger;
+        }
     }
 }

@@ -10,11 +10,15 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(20);
+        }
+
         if(RFIDManager.instance != null && RFIDManager.instance.HasHeart())
         {
             Heal(20);
@@ -27,8 +31,6 @@ public class PlayerHealth : MonoBehaviour
         
         if (currentHealth < 0)
             currentHealth = 0;
-            
-        healthBar.SetHealth(currentHealth);
 
         if (currentHealth == 0)
         {
@@ -46,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
         if (RFIDManager.instance.HasHeart())
         {
             currentHealth += 20;
-            healthBar.SetHealth(currentHealth);
             if (currentHealth >= maxHealth)
             {
                 currentHealth = maxHealth;
