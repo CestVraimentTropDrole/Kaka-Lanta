@@ -15,9 +15,16 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private GameObject endTurnButton;
 
+    [Header("Protection contre la faim")]
+    [SerializeField] private float houseHungerReduction = 0.5f;
+    //[SerializeField] private float campfireHungerReduction = 0.25f;
+
     private int currentTurn = 1;
     private float currentTurnTime;
     private bool turnActive = true;
+
+    private bool playerInHouse = false;
+    //private bool playerNearCampfire = false;
 
     void Awake()
     {
@@ -114,9 +121,32 @@ public class TurnSystem : MonoBehaviour
         PlayerHunger playerHunger = FindFirstObjectByType<PlayerHunger>();
         if (playerHunger != null)
         {
-            int hungerLoss = CalculateHungerLoss();
-            playerHunger.LoseHungerFromTurn(hungerLoss);
+            int baseHungerLoss = CalculateHungerLoss();
+            int finalHungerLoss = ApplyProtection(baseHungerLoss);
+            
+            playerHunger.LoseHungerFromTurn(finalHungerLoss);
         }
+    }
+    private int ApplyProtection(int baseHungerLoss)
+    {
+        float finalLoss = baseHungerLoss;
+
+        if (playerInHouse)
+        {
+            finalLoss *= (1f-houseHungerReduction);
+        }
+
+        //if (playerNearCampfire)
+        //{
+        //    finalLoss *= (1f-campfireHungerReduction);
+        //}
+
+        return Mathf.Max(1, Mathf.RoundToInt(finalLoss));
+    }
+
+    public void SetPlayerInHouse(bool inHouse)
+    {
+        playerInHouse = inHouse;
     }
 
     private int CalculateHungerLoss()

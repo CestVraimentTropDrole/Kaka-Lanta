@@ -263,10 +263,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 139298638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
 --- !u!1 &164078052
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,11 +579,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 226028337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d896826471235f44387b853162406c50, type: 3}
+  m_Script: {fileID: 11500000, guid: 85b914290ba5f9d44b008db383718f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
-  playerHunger: {fileID: 0}
 --- !u!1 &228464697
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,11 +897,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 372139160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b88ca237c23ba4bbdd275de76d1e0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 54c9a08997f29db4481e9b0d295327ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
-  playerHunger: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -18423,6 +18418,7 @@ MonoBehaviour:
   maxTurns: 10
   timerText: {fileID: 691775235}
   endTurnButton: {fileID: 1772037965}
+  houseHungerReduction: 0.5
 --- !u!4 &627056643
 Transform:
   m_ObjectHideFlags: 0
@@ -18466,14 +18462,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 641550101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a13d3bf0de3aa1c48bf5321be813e218, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fd03acec465882428bf3b3b4692e6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   treePrefab: {fileID: 1829893564748691709, guid: cd47993069c6e944f8ec7d029ce47809, type: 3}
   minWoodDropped: 2
   maxWoodDropped: 4
   dropRadius: 1
-  playerInZone: 0
 --- !u!61 &641550103
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18618,10 +18613,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 669751432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c2deaf25ba1b84392ef82c026c6874, type: 3}
+  m_Script: {fileID: 11500000, guid: a7ed3f225a2680a44bdc0ec92fbfbfe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
 --- !u!61 &669751434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19038,14 +19032,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 699548825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f53cb2e2310a44ca184a5ae9ba7cb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 69c682607de62da4f87aa014860ec129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stonePrefab: {fileID: 7120041533234896321, guid: 3845fac25489b7e40a64941e821d82a8, type: 3}
   minStoneDropped: 2
   maxStoneDropped: 4
   dropRadius: 1
-  playerInZone: 0
 --- !u!61 &699548827
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19708,6 +19701,7 @@ GameObject:
   - component: {fileID: 995178003}
   - component: {fileID: 995178005}
   - component: {fileID: 995178004}
+  - component: {fileID: 995178006}
   m_Layer: 0
   m_Name: HouseBuild
   m_TagString: Untagged
@@ -19831,6 +19825,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &995178006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995178002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b066e9d8cf7c34fbc0c7cc88f474ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1077219216
 GameObject:
   m_ObjectHideFlags: 0
@@ -20046,10 +20052,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1146432298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
 --- !u!61 &1146432300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21036,10 +21041,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452814566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
 --- !u!61 &1452814568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21267,10 +21271,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1649293623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eed962375287e541bab99a52f58dec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInZone: 0
 --- !u!61 &1649293625
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25030,7 +25033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c406bf64d44cc4f93cc47831c0c62d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  woodRequired: 10
+  woodRequired: 1
   finalBuilding: {fileID: 995178002}
   uiPanel: {fileID: 1349105030}
   costText: {fileID: 1679299367}

@@ -25,10 +25,8 @@ public class BuildCampfire : MonoBehaviour
 
     void Start()
     {
-        // Récupérer tous les SpriteRenderer pour les rendre transparents
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         
-        // Rendre le fantôme semi-transparent
         SetGhostTransparency();
         
         // Cacher l'UI au départ
@@ -55,16 +53,14 @@ public class BuildCampfire : MonoBehaviour
         bool canBuild = Inventory.instance != null && 
                        Inventory.instance.GetWoodCount() >= woodRequired;
 
-        // Mettre à jour la couleur du fantôme
         UpdateGhostColor(canBuild);
 
-        // Construire si le joueur appuie sur E et a assez de bois
+        // Construire
         if (canBuild && Input.GetKeyDown(KeyCode.E))
         {
             Build();
         }
         
-        // Alternative: construction avec le bouton RFID
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             Build();
@@ -126,8 +122,6 @@ public class BuildCampfire : MonoBehaviour
             
             if (uiPanel != null)
                 uiPanel.SetActive(true);
-                
-            Debug.Log("🏗️ Zone de construction");
         }
     }
 
@@ -139,8 +133,6 @@ public class BuildCampfire : MonoBehaviour
             
             if (uiPanel != null)
                 uiPanel.SetActive(false);
-                
-            Debug.Log("👋 Sortie de la zone de construction");
         }
     }
 }
