@@ -38,7 +38,7 @@ public class StoneMinigame : MonoBehaviour
                 rt.anchorMin = new Vector2(0.4f, 0f);
                 rt.anchorMax = new Vector2(0.6f, 1f);
             }
-            successZoneImage.color = new Color(0, 1, 0, 0.3f);
+            successZoneImage.color = new Color(0, 1, 0, 1f);
         }
     }
 
