@@ -17,14 +17,14 @@ public class TurnSystem : MonoBehaviour
 
     [Header("Protection contre la faim")]
     [SerializeField] private float houseHungerReduction = 0.5f;
-    //[SerializeField] private float campfireHungerReduction = 0.25f;
+    [SerializeField] private float campfireHungerReduction = 0.25f;
 
     private int currentTurn = 1;
     private float currentTurnTime;
     private bool turnActive = true;
 
     private bool playerInHouse = false;
-    //private bool playerNearCampfire = false;
+    private bool playerNearCampfire = false;
 
     void Awake()
     {
@@ -136,10 +136,10 @@ public class TurnSystem : MonoBehaviour
             finalLoss *= (1f-houseHungerReduction);
         }
 
-        //if (playerNearCampfire)
-        //{
-        //    finalLoss *= (1f-campfireHungerReduction);
-        //}
+        if (playerNearCampfire)
+        {
+            finalLoss *= (1f-campfireHungerReduction);
+        }
 
         return Mathf.Max(1, Mathf.RoundToInt(finalLoss));
     }
@@ -147,6 +147,11 @@ public class TurnSystem : MonoBehaviour
     public void SetPlayerInHouse(bool inHouse)
     {
         playerInHouse = inHouse;
+    }
+
+    public void SetPlayerNearCampfire(bool nearCampfire)
+    {
+        playerNearCampfire = nearCampfire;
     }
 
     private int CalculateHungerLoss()

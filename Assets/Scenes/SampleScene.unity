@@ -18419,6 +18419,7 @@ MonoBehaviour:
   timerText: {fileID: 691775235}
   endTurnButton: {fileID: 1772037965}
   houseHungerReduction: 0.5
+  campfireHungerReduction: 0.25
 --- !u!4 &627056643
 Transform:
   m_ObjectHideFlags: 0
@@ -21401,6 +21402,7 @@ GameObject:
   - component: {fileID: 1650896847}
   - component: {fileID: 1650896849}
   - component: {fileID: 1650896848}
+  - component: {fileID: 1650896850}
   m_Layer: 0
   m_Name: CampfireBuild
   m_TagString: Untagged
@@ -21524,6 +21526,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1650896850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650896846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670edf668bf008c4b8ccd15d56d9b83a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1663097499
 GameObject:
   m_ObjectHideFlags: 0
