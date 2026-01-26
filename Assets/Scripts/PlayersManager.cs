@@ -73,4 +73,10 @@ public class PlayersManager : MonoBehaviour
         }
         SetActivePlayer();
     }
+
+    public GameObject GetActivePlayer()
+    {
+        if (currentPlayer >= 0 && currentPlayer < players.Count) { return players[currentPlayer]; }
+        return null;
+    }
 }
