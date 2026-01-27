@@ -115,7 +115,10 @@ public class TurnSystem : MonoBehaviour
 
     private void OnTurnStart()
     {
-        // Actions au début de chaque tour
+        if (EventSystem.instance != null)
+        {
+            EventSystem.instance.OnTurnStart();
+        }
     }
 
     private void OnTurnEnd()

@@ -42,7 +42,7 @@ public class RFIDManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("Erreur port série : " + e.Message);
+            
         }
     }
 
@@ -86,6 +86,8 @@ public class RFIDManager : MonoBehaviour
             catch { }
         }
     }
+
+    
 
     public bool IsButtonPressed() => buttonJustPressed;
 
