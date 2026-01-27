@@ -36,7 +36,7 @@ public class WoodResource : MonoBehaviour
             return;
         }
 
-        int baseAmount = RFIDManager.instance.HasAxe() ? 2 : 1;
+        int baseAmount = RFIDManager.instance.HasAxe() ? 1 : 1;
 
         if (EventSystem.instance != null)
         {
