@@ -85,10 +85,36 @@ public class RFIDManager : MonoBehaviour
             }
             catch { }
         }
+
+        // Contrôles clavier
+        if (Input.GetKey(KeyCode.Q)) _AL = true;
+        if (Input.GetKey(KeyCode.D)) _AR = true;
+        if (Input.GetKey(KeyCode.Z)) _AU = true;
+        if (Input.GetKey(KeyCode.S)) _AD = true;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            buttonJustPressed = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            lastRFID = "RFID:O1";
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            lastRFID = "RFID:O2";
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            lastRFID = "RFID:O3";
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            lastRFID = "RFID:O4";
+        }
     }
-
     
-
     public bool IsButtonPressed() => buttonJustPressed;
 
     public bool HasAxe()        => lastRFID == "RFID:O1";
