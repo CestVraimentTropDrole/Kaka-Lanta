@@ -13,10 +13,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Récupérer les entrées du clavier
-        moveInput.x = Input.GetAxisRaw("Horizontal"); // A/D ou Flèches gauche/droite
-        moveInput.y = Input.GetAxisRaw("Vertical");   // W/S ou Flèches haut/bas
+        moveInput = Vector2.zero;
+
+        if (RFIDManager.instance.AL()) moveInput.x = -1;
+        if (RFIDManager.instance.AR()) moveInput.x = 1;
+        if (RFIDManager.instance.AU()) moveInput.y = 1;
+        if (RFIDManager.instance.AD()) moveInput.y = -1;
     }
+
 
     void FixedUpdate()
     {

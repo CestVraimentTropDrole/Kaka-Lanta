@@ -4,24 +4,22 @@ using System;
 
 public class RFIDManager : MonoBehaviour
 {
-    public static RFIDManager instance; 
+    public static RFIDManager instance;
 
-    [Header("Arduino RFID")]
-    [SerializeField] private string portRFID = "COM6";
-
-    [Header("Arduino Bouton")]
-    [SerializeField] private string portBouton = "COM8";
-
+    [SerializeField] private string portName = "COM8";
     [SerializeField] private int baudRate = 9600;
 
-    private SerialPort serialRFID;
-    private SerialPort serialBouton;
+    private SerialPort serial;
 
     private string lastRFID = "";
     private bool buttonJustPressed = false;
-    
-    private bool rfidConnected = false;
-    private bool boutonConnected = false;
+
+    private bool _AL, _AR, _AU, _AD;
+
+    public bool AL() => _AL;
+    public bool AR() => _AR;
+    public bool AU() => _AU;
+    public bool AD() => _AD;
 
     void Awake()
     {
@@ -30,39 +28,21 @@ public class RFIDManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        else Destroy(gameObject);
     }
 
     void Start()
     {
-        // Tentative de connexion RFID
         try
         {
-            serialRFID = new SerialPort(portRFID, baudRate);
-            serialRFID.ReadTimeout = 100;
-            serialRFID.Open();
-            rfidConnected = true;
+            serial = new SerialPort(portName, baudRate);
+            serial.ReadTimeout = 100;
+            serial.Open();
+            Debug.Log("Arduino connecté");
         }
         catch (Exception e)
         {
-            
-        }
-
-        // Tentative de connexion Bouton
-        try
-        {
-            serialBouton = new SerialPort(portBouton, baudRate);
-            serialBouton.ReadTimeout = 100;
-            serialBouton.Open();
-            boutonConnected = true;
-        }
-        catch (Exception e)
-        {
-    
+            Debug.LogError("Erreur port série : " + e.Message);
         }
     }
 
@@ -70,133 +50,55 @@ public class RFIDManager : MonoBehaviour
     {
         buttonJustPressed = false;
 
-        // ---------- RFID ----------
-        if (rfidConnected && serialRFID.IsOpen)
+        if (serial != null && serial.IsOpen && serial.BytesToRead > 0)
         {
             try
             {
-                if (serialRFID.BytesToRead > 0)
+                string data = serial.ReadLine().Trim();
+                Debug.Log(data);
+
+                // ---------- RFID ----------
+                if (data.StartsWith("RFID:"))
                 {
-                    lastRFID = serialRFID.ReadLine().Trim();
-                    Debug.Log("RFID: " + lastRFID);
+                    lastRFID = data;
                 }
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Erreur lecture RFID: " + e.Message);
-            }
-        }
 
-        // ---------- BOUTON ----------
-        if (boutonConnected && serialBouton.IsOpen)
-        {
-            try
-            {
-                if (serialBouton.BytesToRead > 0)
+                // ---------- BOUTON ----------
+                else if (data == "BTN:PRESSED")
                 {
-                    string data = serialBouton.ReadLine().Trim();
-                    Debug.Log("Bouton: " + data);
+                    buttonJustPressed = true;
+                }
 
-                    if (data == "BUTTON PRESSED")
+                // ---------- JOYSTICK ----------
+                else if (data.StartsWith("JOY:"))
+                {
+                    _AL = _AR = _AU = _AD = false;
+
+                    switch (data)
                     {
-                        buttonJustPressed = true;
+                        case "JOY:LEFT":  _AR = true; break;
+                        case "JOY:RIGHT": _AL = true; break;
+                        case "JOY:UP":    _AU = true; break;
+                        case "JOY:DOWN":  _AD = true; break;
                     }
                 }
             }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Erreur lecture Bouton: " + e.Message);
-            }
-        }
-
-        // TEST CLAVIER (sans arduino)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Test clavier: Espace pressé");
-            buttonJustPressed = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            lastRFID = "Objet 2";
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            lastRFID = "Objet 1";
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            lastRFID = "Objet 3";
+            catch { }
         }
     }
 
-    public bool IsButtonPressed()
-    {
-        return buttonJustPressed;
-    }
+    public bool IsButtonPressed() => buttonJustPressed;
 
-    public bool HasAxe()
-    {
-        return lastRFID.Contains("Objet 1");
-    }
+    public bool HasAxe()        => lastRFID == "RFID:O1";
+    public bool HasPioche()     => lastRFID == "RFID:O2";
+    public bool HasFishingRod() => lastRFID == "RFID:O3";
+    public bool HasHeart()      => lastRFID == "RFID:O4";
 
-    public bool HasPioche()
-    {
-        return lastRFID.Contains("Objet 2");
-    }
-
-    public bool HasHeart()
-    {
-        return lastRFID.Contains("Objet 4");
-    }
-
-    public bool HasFishingRod()
-    {
-        return lastRFID.Contains("Objet 3");
-    }
-
-    public string GetLastRFID()
-    {
-        return lastRFID;
-    }
+    public string GetLastRFID() => lastRFID;
 
     void OnApplicationQuit()
     {
-        CloseSerialPorts();
-    }
-
-    void OnDestroy()
-    {
-        CloseSerialPorts();
-    }
-
-    void OnDisable()
-    {
-        CloseSerialPorts();
-    }
-
-    private void CloseSerialPorts()
-    {
-        try
-        {
-            if (serialRFID != null && serialRFID.IsOpen)
-            {
-                serialRFID.Close();
-                Debug.Log("Port RFID fermé");
-            }
-        }
-        catch { }
-
-        try
-        {
-            if (serialBouton != null && serialBouton.IsOpen)
-            {
-                serialBouton.Close();
-                Debug.Log("Port Bouton fermé");
-            }
-        }
-        catch { }
+        if (serial != null && serial.IsOpen)
+            serial.Close();
     }
 }
