@@ -30,6 +30,10 @@ public class MainMenu : MonoBehaviour
             playerCount = playerDropdown.value + 2;
         }
 
+        if (GameData.instance != null) {
+            GameData.instance.SetNumberOfPlayers(playerCount);
+        }
+
         SceneManager.LoadScene(levelToLoad);
     }
 
