@@ -19,9 +19,11 @@ public class TurnSystem : MonoBehaviour
     [SerializeField] private float houseHungerReduction = 0.5f;
     [SerializeField] private float campfireHungerReduction = 0.25f;
 
+
     private int currentTurn = 1;
     private float currentTurnTime;
     private bool turnActive = true;
+
 
     private bool playerInHouse = false;
     private bool playerNearCampfire = false;
@@ -121,12 +123,11 @@ public class TurnSystem : MonoBehaviour
         PlayerHunger playerHunger = FindFirstObjectByType<PlayerHunger>();
         if (playerHunger != null)
         {
-            int baseHungerLoss = CalculateHungerLoss();
-            int finalHungerLoss = ApplyProtection(baseHungerLoss);
-            
-            playerHunger.LoseHungerFromTurn(finalHungerLoss);
+            int hungerLoss = CalculateHungerLoss();
+            playerHunger.LoseHungerFromTurn(hungerLoss);
         }
     }
+
     private int ApplyProtection(int baseHungerLoss)
     {
         float finalLoss = baseHungerLoss;
@@ -161,7 +162,15 @@ public class TurnSystem : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("🎯 Partie terminée !");
+        if (BuildRaft.instance != null && BuildRaft.instance.RaftisBuilt == true)
+        {
+            Debug.Log("Vous avez construit votre radeau et vous avez gagné!");
+        }
+        else
+        {
+            Debug.Log("Vous avez perdu !");
+        }
+
         turnActive = false;
     }
 

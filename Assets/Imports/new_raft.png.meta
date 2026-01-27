@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e8fe1cfda659dfe4ea4a107b9135d4e8
+guid: 5b6cd86f7bd99d943ba859ef9899ad6e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7477641686685662164
-    second: banane_0
+      213: -2645786300086314601
+    second: new_raft_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: banane_0
+      name: new_raft_0
       rect:
         serializedVersion: 2
-        x: 88
-        y: 79
-        width: 184
-        height: 202
+        x: 289
+        y: 529
+        width: 252
+        height: 102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c24c27311841a3890800000000000000
-      internalID: -7477641686685662164
+      spriteID: 79992c7c067484bd0800000000000000
+      internalID: -2645786300086314601
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      banane_0: -7477641686685662164
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
