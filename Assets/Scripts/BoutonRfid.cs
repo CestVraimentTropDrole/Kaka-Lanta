@@ -46,6 +46,7 @@ public class RFIDManager : MonoBehaviour
             serialRFID.ReadTimeout = 100;
             serialRFID.Open();
             rfidConnected = true;
+            Debug.Log("✓ RFID connecté sur " + portRFID);
         }
         catch (Exception e)
         {
@@ -59,16 +60,22 @@ public class RFIDManager : MonoBehaviour
             serialBouton.ReadTimeout = 100;
             serialBouton.Open();
             boutonConnected = true;
+            Debug.Log("✓ Bouton connecté sur " + portBouton);
         }
         catch (Exception e)
         {
     
         }
+
+        if (!rfidConnected || !boutonConnected)
+        {
+            Debug.LogWarning("⚠ Certains ports ne sont pas connectés. Le système fonctionnera en mode dégradé.");
+        }
     }
 
     void Update()
     {
-        buttonJustPressed = false;
+        buttonJustPressed = false; // Reset chaque frame
 
         // ---------- RFID ----------
         if (rfidConnected && serialRFID.IsOpen)
@@ -109,29 +116,15 @@ public class RFIDManager : MonoBehaviour
             }
         }
 
-        // TEST CLAVIER (sans arduino)
+        // TEST CLAVIER (pour tester sans Arduino)
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Test clavier: Espace pressé");
             buttonJustPressed = true;
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            lastRFID = "Objet 2";
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            lastRFID = "Objet 1";
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            lastRFID = "Objet 3";
-        }
     }
 
+    // Méthodes publiques pour que les objets bois puissent vérifier l'état
     public bool IsButtonPressed()
     {
         return buttonJustPressed;
@@ -142,7 +135,7 @@ public class RFIDManager : MonoBehaviour
         return lastRFID.Contains("Objet 1");
     }
 
-    public bool HasPioche()
+     public bool HasPioche()
     {
         return lastRFID.Contains("Objet 2");
     }
@@ -150,11 +143,6 @@ public class RFIDManager : MonoBehaviour
     public bool HasHeart()
     {
         return lastRFID.Contains("Objet 4");
-    }
-
-    public bool HasFishingRod()
-    {
-        return lastRFID.Contains("Objet 3");
     }
 
     public string GetLastRFID()
