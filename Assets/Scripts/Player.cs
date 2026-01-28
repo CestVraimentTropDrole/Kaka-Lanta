@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
         if (RFIDManager.instance.AR()) moveInput.x = 1;
         if (RFIDManager.instance.AU()) moveInput.y = 1;
         if (RFIDManager.instance.AD()) moveInput.y = -1;
+        if (RFIDManager.instance.C()) {
+            moveInput.y = 0;
+            moveInput.x = 0;
+        }
     }
 
 

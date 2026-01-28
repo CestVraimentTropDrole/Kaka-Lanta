@@ -14,12 +14,13 @@ public class RFIDManager : MonoBehaviour
     private string lastRFID = "";
     private bool buttonJustPressed = false;
 
-    private bool _AL, _AR, _AU, _AD;
+    private bool _AL, _AR, _AU, _AD, _C;
 
     public bool AL() => _AL;
     public bool AR() => _AR;
     public bool AU() => _AU;
     public bool AD() => _AD;
+    public bool C() => _C;
 
     void Awake()
     {
@@ -49,6 +50,7 @@ public class RFIDManager : MonoBehaviour
     void Update()
     {
         buttonJustPressed = false;
+        _AL = _AR = _AU = _AD = _C = false; // A delete pour jouer au joystick
 
         if (serial != null && serial.IsOpen && serial.BytesToRead > 0)
         {
@@ -72,7 +74,7 @@ public class RFIDManager : MonoBehaviour
                 // ---------- JOYSTICK ----------
                 else if (data.StartsWith("JOY:"))
                 {
-                    _AL = _AR = _AU = _AD = false;
+                    _AL = _AR = _AU = _AD = _C = false;
 
                     switch (data)
                     {
@@ -80,6 +82,7 @@ public class RFIDManager : MonoBehaviour
                         case "JOY:RIGHT": _AL = true; break;
                         case "JOY:UP":    _AU = true; break;
                         case "JOY:DOWN":  _AD = true; break;
+                        case "JOY:CENTER": _C = true; break;
                     }
                 }
             }
