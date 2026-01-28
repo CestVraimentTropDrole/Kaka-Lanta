@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private string horizontalAxis;
     private string verticalAxis;
 
+    [Header("Sound")]
+    public AudioClip MoveSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,13 +26,25 @@ public class PlayerMovement : MonoBehaviour
         moveInput = Vector2.zero;
 
         if (RFIDManager.instance.AL()) moveInput.x = -1;
+            if (MoveSound != null)
+            {
+                AudioSource.PlayClipAtPoint(MoveSound, transform.position, 0.5f);
+            }
         if (RFIDManager.instance.AR()) moveInput.x = 1;
+            if (MoveSound != null)
+            {
+                AudioSource.PlayClipAtPoint(MoveSound, transform.position, 0.5f);
+            }
         if (RFIDManager.instance.AU()) moveInput.y = 1;
+            if (MoveSound != null)
+            {
+                AudioSource.PlayClipAtPoint(MoveSound, transform.position, 0.5f);
+            }
         if (RFIDManager.instance.AD()) moveInput.y = -1;
-        if (RFIDManager.instance.C()) {
-            moveInput.y = 0;
-            moveInput.x = 0;
-        }
+            if (MoveSound != null)
+            {
+                AudioSource.PlayClipAtPoint(MoveSound, transform.position, 0.5f);
+            }
     }
 
 
