@@ -23,6 +23,7 @@ public class BuildCampfire : MonoBehaviour
     private bool playerInZone = false;
     private bool isBuilt = false;
 
+    [Header("Sound")]
     public AudioClip BuildSound;
 
     void Start()
