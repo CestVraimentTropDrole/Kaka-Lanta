@@ -4,12 +4,18 @@ public class WoodResource : MonoBehaviour
 {
     private bool playerInZone = false;
 
+    [Header("Sound")]
+    public AudioClip pickupSound;
     void Update()
     {
         // Si le joueur est dans la zone ET que le bouton est pressé
         if (playerInZone && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             HarvestWood();
+            if (pickupSound != null)
+    {
+        AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+    }
         }
     }
 

@@ -11,7 +11,7 @@ public class WoodPickup : MonoBehaviour
     {
         if (playerInZone && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
-            PickupWood();
+            PickupWood();    
         }
     }
     
@@ -39,7 +39,6 @@ public class WoodPickup : MonoBehaviour
         }
 
         Inventory.instance.AddWood(woodValue);
-
         Destroy(gameObject);
     }
 }
