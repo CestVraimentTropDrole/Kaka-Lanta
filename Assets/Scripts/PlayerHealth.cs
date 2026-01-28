@@ -10,7 +10,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
@@ -27,13 +26,9 @@ public class PlayerHealth : MonoBehaviour
         
         if (currentHealth < 0)
             currentHealth = 0;
-            
-        healthBar.SetHealth(currentHealth);
 
         if (currentHealth == 0)
-        {
             Die();
-        }
     }
 
     public void TakeDamageFromStarvation(int damage)
@@ -46,12 +41,10 @@ public class PlayerHealth : MonoBehaviour
         if (RFIDManager.instance.HasHeart())
         {
             currentHealth += 20;
-            healthBar.SetHealth(currentHealth);
             if (currentHealth >= maxHealth)
             {
                 currentHealth = maxHealth;
             }
-
         }
 
     }

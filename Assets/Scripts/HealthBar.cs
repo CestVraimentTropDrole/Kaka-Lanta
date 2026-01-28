@@ -4,15 +4,36 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider slider;
+    private PlayersManager manager;
+    private PlayerHealth currentPlayerHealth;
 
-    public void SetMaxHealth(int health)
+    void Start()
     {
-        slider.maxValue = health;
-        slider.value = health;
+        manager = FindFirstObjectByType<PlayersManager>();
+        UpdateHealthBar();
     }
 
-    public void SetHealth(int health)
+    void Update()
     {
-        slider.value = health;
+        UpdateHealthBar();
+    }
+
+    void UpdateHealthBar()
+    {
+        if (manager == null) return;
+
+        // Récupère le joueur actif
+        GameObject activePlayer = manager.GetActivePlayer();
+        if (activePlayer == null) return;
+
+        // Récupère le script PlayerHealth du joueur actif
+        PlayerHealth playerHealth = activePlayer.GetComponent<PlayerHealth>();
+        
+        if (playerHealth != null)
+        {
+            // Met à jour la barre avec la vie du joueur actif
+            slider.maxValue = playerHealth.maxHealth;
+            slider.value = playerHealth.currentHealth;
+        }
     }
 }

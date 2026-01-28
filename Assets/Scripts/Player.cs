@@ -6,9 +6,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    public int playerNumber = 1; // 1, 2, 3 ou 4
+    private string horizontalAxis;
+    private string verticalAxis;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Récupérer les entrées du clavier
+        horizontalAxis = "Horizontal" + playerNumber;
+        verticalAxis = "Vertical" + playerNumber;
     }
 
     void Update()
