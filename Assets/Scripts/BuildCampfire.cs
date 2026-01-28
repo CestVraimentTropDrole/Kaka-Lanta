@@ -23,6 +23,8 @@ public class BuildCampfire : MonoBehaviour
     private bool playerInZone = false;
     private bool isBuilt = false;
 
+    public AudioClip BuildSound;
+
     void Start()
     {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -59,11 +61,19 @@ public class BuildCampfire : MonoBehaviour
         if (canBuild && Input.GetKeyDown(KeyCode.E))
         {
             Build();
+            if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
         
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             Build();
+            if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
     }
 

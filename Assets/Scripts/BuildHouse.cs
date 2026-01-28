@@ -69,6 +69,10 @@ public class BuildingGhost : MonoBehaviour
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             Build();
+            if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
     }
 
