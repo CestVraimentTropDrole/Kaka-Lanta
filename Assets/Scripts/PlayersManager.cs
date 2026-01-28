@@ -18,13 +18,17 @@ public class PlayersManager : MonoBehaviour
 
     private List<GameObject> players = new List<GameObject>(); // Liste pour stocker les joueurs
 
+    void Awake() // CHANGÉ : Start() -> Awake()
+    {
+        // Récupère le nombre de joueurs AVANT que TurnSystem ne le demande
+        if (GameData.instance != null)
+        {
+            numberPlayers = GameData.instance.numberPlayers;
+            Debug.Log("PlayersManager Awake() Nombre de joueurs récupéré : " + numberPlayers);
+        }
+    }
     public void Start()
     {
-        if (GameData.instance != null) {
-            numberPlayers = GameData.instance.numberPlayers;
-            Debug.Log("Nombre de joueurs récupéré : " + numberPlayers);
-        }
-
         for (int i = 0; i < numberPlayers; i++)
         {
             GameObject player = Instantiate(playerPrefab, spawnPoints.position, Quaternion.identity);
@@ -76,6 +80,7 @@ public class PlayersManager : MonoBehaviour
 
     public int GetNumberOfPlayers()
     {
+        Debug.Log("PlayersManager GetNumberOfPlayers() Nombre de joueurs : " + numberPlayers);
         return numberPlayers;
     }
 

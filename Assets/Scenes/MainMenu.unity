@@ -2818,7 +2818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d4b893ecb7ae1458a91938ce29c845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberPlayers: 2
+  numberPlayers: 0
   currentRound: 1
   listPlayers: []
 --- !u!4 &1161789866

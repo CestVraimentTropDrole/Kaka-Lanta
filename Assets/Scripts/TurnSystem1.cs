@@ -44,6 +44,7 @@ public class TurnSystem : MonoBehaviour
         if (manager == null) { Debug.LogError("PlayersManager non trouvé dans la scène !"); }
 
         totalPlayers = manager.GetNumberOfPlayers();
+        Debug.Log("TurnSystem Start() Total players: " + totalPlayers);
 
         StartNewTurn();
     }
