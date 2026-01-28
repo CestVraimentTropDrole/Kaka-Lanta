@@ -10,7 +10,7 @@ public class TurnSystem : MonoBehaviour
 
     [Header("Config des tours")]
 
-    [SerializeField] private float turnDuration = 30f;
+    [SerializeField] private float turnDuration = 45f;
     [SerializeField] private TMP_Text turnNumberText;
     [SerializeField] private float maxDays = 10;
     [SerializeField] private TMP_Text timerText;
@@ -28,7 +28,6 @@ public class TurnSystem : MonoBehaviour
     private int totalPlayers;
     public int currentDay = 1;
     private bool tempeteTriggered = false;
-
 
     private bool playerInHouse = false;
     private bool playerNearCampfire = false;
@@ -72,6 +71,13 @@ public class TurnSystem : MonoBehaviour
                 EventSystem.instance.TempeteEvent();
                 Debug.Log("Event tempête en cours");
             }
+        }
+
+
+        if (EventSystem.instance != null && EventSystem.instance.shortDay == true)
+        {
+            EventSystem.instance.ShortDay();
+            turnDuration = 30f;
         }
     }
 

@@ -19,6 +19,7 @@ public class EventSystem : MonoBehaviour
     // États des événements actifs
     [HideInInspector] public bool doubleWoodEvent = false;
     [HideInInspector] public bool doubleStoneEvent = false;
+    [HideInInspector] public bool shortDay = false;
     [HideInInspector] public bool tempeteEvent = false;
     
     private int daysUntilNextEvent;
@@ -74,7 +75,7 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 4);
+        int randomEvent = Random.Range(0, 5);
         
         switch (randomEvent)
         {
@@ -84,6 +85,10 @@ public class EventSystem : MonoBehaviour
             
             case 1:
                 DoubleStoneEvent();
+                break;
+            
+            case 2:
+                ShortDay();
                 break;
         }
     }
@@ -106,6 +111,14 @@ public class EventSystem : MonoBehaviour
         Debug.Log("Événement : Pierre x2");
     }
 
+    public void ShortDay()
+    {
+        shortDay = true;
+        currentEventDuration = 1;
+        ShowEvent("On a gagné du temps..", "Le jour est plus court, personne ne sait pourquoi..", Color.green);
+        Debug.Log("Événement : Short Day");
+    }
+
     public void TempeteEvent()
     {
         tempeteEvent = true;
@@ -119,6 +132,7 @@ public class EventSystem : MonoBehaviour
     {
         doubleWoodEvent = false;
         doubleStoneEvent = false;
+        shortDay = false;
         tempeteEvent = false;
     }
 
