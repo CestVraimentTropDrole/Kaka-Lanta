@@ -26,7 +26,7 @@ public class TurnSystem : MonoBehaviour
     private bool turnActive = true;
     private PlayersManager manager;
     private int totalPlayers;
-    private int currentDay = 1;
+    public int currentDay = 1;
     private bool tempeteTriggered = false;
 
 

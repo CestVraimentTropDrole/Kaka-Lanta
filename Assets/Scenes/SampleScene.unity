@@ -19588,7 +19588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c80bcbd4f5389f4cb8c47949416bcee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: COM8
+  portName_m1: COM8
+  portName_m2: COM10
   baudRate: 9600
 --- !u!4 &780980980
 Transform:
@@ -23153,6 +23154,7 @@ MonoBehaviour:
   eventDescriptionText: {fileID: 1624162532}
   eventDisplayDuration: 5
   doubleWoodEvent: 0
+  tempeteEvent: 0
 --- !u!4 &1721241326
 Transform:
   m_ObjectHideFlags: 0

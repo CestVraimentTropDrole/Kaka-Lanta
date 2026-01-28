@@ -7,8 +7,8 @@ public class EventSystem : MonoBehaviour
     public static EventSystem instance;
 
     [Header("Configuration")]
-    [SerializeField] private int minTurnsBetweenEvents = 2;
-    [SerializeField] private int maxTurnsBetweenEvents = 3;
+    [SerializeField] private int minDaysBetweenEvents = 2;
+    [SerializeField] private int maxDaysBetweenEvents = 3;
     
     [Header("UI")]
     [SerializeField] private GameObject eventPanel;
@@ -20,7 +20,7 @@ public class EventSystem : MonoBehaviour
     [HideInInspector] public bool doubleWoodEvent = false;
     [HideInInspector] public bool tempeteEvent = false;
     
-    private int turnsUntilNextEvent;
+    private int daysUntilNextEvent;
     private int currentEventDuration = 0;
 
     void Awake()
@@ -41,7 +41,7 @@ public class EventSystem : MonoBehaviour
             eventPanel.SetActive(false);
             
         // Premier événement dans 2-3 tours
-        turnsUntilNextEvent = Random.Range(minTurnsBetweenEvents, maxTurnsBetweenEvents + 1);
+        daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
     }
 
     public void OnTurnStart()
@@ -57,11 +57,11 @@ public class EventSystem : MonoBehaviour
         }
         
         // Vérifier si c'est le moment d'un nouvel événement
-        turnsUntilNextEvent--;
-        if (turnsUntilNextEvent <= 0)
+        daysUntilNextEvent--;
+        if (daysUntilNextEvent <= 0)
         {
             TriggerRandomEvent();
-            turnsUntilNextEvent = Random.Range(minTurnsBetweenEvents, maxTurnsBetweenEvents + 1);
+            daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
         }
     }
 
@@ -71,7 +71,7 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 0);
+        int randomEvent = Random.Range(0, 2);
         
         switch (randomEvent)
         {
@@ -86,7 +86,7 @@ public class EventSystem : MonoBehaviour
     private void DoubleWoodEvent()
     {
         doubleWoodEvent = true;
-        currentEventDuration = 2; // Dure 2 tours
+        currentEventDuration = 2;
         ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 tours !", Color.green);
         Debug.Log("Événement : Bois x2");
     }
