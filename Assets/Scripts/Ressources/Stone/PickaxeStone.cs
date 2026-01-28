@@ -24,6 +24,12 @@ public class StoneMinigame : MonoBehaviour
     private bool movingRight = true;
     private int successfulHits = 0;
 
+    [Header("Sound")]
+    public AudioClip StartSound;
+    public AudioClip SuccessSound;
+    public AudioClip FailSound;
+    public AudioClip AmbianceSound;
+    private AudioSource ambianceSource;
     void Start()
     {
         if (minigameUI != null)
@@ -49,12 +55,26 @@ public class StoneMinigame : MonoBehaviour
             if (RFIDManager.instance.HasPioche() && RFIDManager.instance.IsButtonPressed())
             {
                 StartMinigame();
+                if (StartSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(StartSound, transform.position);
+                }
+                            if (AmbianceSound != null)
+                {
+                    GameObject ambianceObj = new GameObject("AmbianceSound");
+                    ambianceSource = ambianceObj.AddComponent<AudioSource>();
+                    ambianceSource.clip = AmbianceSound;
+                    ambianceSource.loop = false; // PAS de boucle
+                    ambianceSource.volume = 0.05f;
+                 ambianceSource.Play();
+                }
             }
         }
 
         if (minigameActive)
         {
             UpdateMinigame();
+
         }
     }
 
@@ -93,6 +113,7 @@ public class StoneMinigame : MonoBehaviour
             {
                 currentIndicatorPosition = 0f;
                 movingRight = true;
+                
             }
         }
 
@@ -140,6 +161,10 @@ public class StoneMinigame : MonoBehaviour
             {
                 successZoneImage.color = Color.red;
                 Invoke(nameof(ResetZoneColor), 0.2f);
+                if (FailSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(FailSound, transform.position);
+                }
             }
 
         }
@@ -160,7 +185,14 @@ public class StoneMinigame : MonoBehaviour
         if (minigameUI != null)
             minigameUI.SetActive(false);
 
+
         BreakStone();
+        if (SuccessSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(SuccessSound, transform.position);
+                }
+        StopAmbiance();
+
     }
 
     private void FailMinigame()
@@ -170,6 +202,7 @@ public class StoneMinigame : MonoBehaviour
         if (minigameUI != null)
             minigameUI.SetActive(false);
     }
+
 
     private void BreakStone()
     {
@@ -190,6 +223,17 @@ public class StoneMinigame : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private void StopAmbiance()
+{
+    if (ambianceSource != null)
+    {
+        ambianceSource.Stop();
+        Destroy(ambianceSource.gameObject);
+        ambianceSource = null;
+    }
+}
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
