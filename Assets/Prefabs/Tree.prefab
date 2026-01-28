@@ -159,8 +159,8 @@ MonoBehaviour:
   fillImage: {fileID: 0}
   StartSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
   SuccessSound: {fileID: 8300000, guid: 1553c4a0f9bc7714cacc37a6d8815c2b, type: 3}
-  FailSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
   ChopSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
+  AmbianceSound: {fileID: 8300000, guid: 86e71495b4f48b146a33fb698b25d22f, type: 3}
 --- !u!82 &1216615684374406704
 AudioSource:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 161
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

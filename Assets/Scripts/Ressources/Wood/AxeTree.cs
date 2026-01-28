@@ -24,8 +24,9 @@ public class TreeMinigame : MonoBehaviour
     [Header("Sound")]
     public AudioClip StartSound;
     public AudioClip SuccessSound;
-    public AudioClip FailSound;
     public AudioClip ChopSound;
+    public AudioClip AmbianceSound;
+    private AudioSource ambianceSource;
 
     void Start()
     {
@@ -43,6 +44,15 @@ public class TreeMinigame : MonoBehaviour
                 if (StartSound != null)
                 {
                     AudioSource.PlayClipAtPoint(StartSound, transform.position);
+                }
+                if (AmbianceSound != null)
+                {
+                    GameObject ambianceObj = new GameObject("AmbianceSound");
+                    ambianceSource = ambianceObj.AddComponent<AudioSource>();
+                    ambianceSource.clip = AmbianceSound;
+                    ambianceSource.loop = false; // PAS de boucle
+                    ambianceSource.volume = 0.05f;
+                 ambianceSource.Play();
                 }
             }
         }
@@ -108,15 +118,12 @@ public class TreeMinigame : MonoBehaviour
             {
                 AudioSource.PlayClipAtPoint(SuccessSound, transform.position);
             }
+            StopAmbiance();
         }
 
         if (!playerInZone)
         {
             FailMinigame();
-            if (FailSound != null)
-            {
-                AudioSource.PlayClipAtPoint(FailSound, transform.position);
-        }
     }
     }   
     private void SuccessMinigame()
@@ -157,6 +164,16 @@ public class TreeMinigame : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+     private void StopAmbiance()
+{
+    if (ambianceSource != null)
+    {
+        ambianceSource.Stop();
+        Destroy(ambianceSource.gameObject);
+        ambianceSource = null;
+    }
+}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
