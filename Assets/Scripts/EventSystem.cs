@@ -74,7 +74,7 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 3);
+        int randomEvent = Random.Range(0, 4);
         
         switch (randomEvent)
         {
@@ -94,7 +94,7 @@ public class EventSystem : MonoBehaviour
     {
         doubleWoodEvent = true;
         currentEventDuration = 1;
-        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 jours !", Color.green);
+        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé aujourd'hui !", Color.green);
         Debug.Log("Événement : Bois x2");
     }
 
@@ -102,7 +102,7 @@ public class EventSystem : MonoBehaviour
     {
         doubleWoodEvent = true;
         currentEventDuration = 1;
-        ShowEvent("Mine Généreuse", "La pierre récoltée est doublé pendant 2 jours !", Color.green);
+        ShowEvent("Mine Généreuse", "La pierre récoltée est doublé aujourd'hui !", Color.green);
         Debug.Log("Événement : Pierre x2");
     }
 
