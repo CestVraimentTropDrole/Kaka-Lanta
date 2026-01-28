@@ -21,6 +21,12 @@ public class TreeMinigame : MonoBehaviour
     private float currentProgress = 0f;
     private int currentClicks = 0;
 
+    [Header("Sound")]
+    public AudioClip StartSound;
+    public AudioClip SuccessSound;
+    public AudioClip FailSound;
+    public AudioClip ChopSound;
+
     void Start()
     {
         if (minigameUI != null)
@@ -34,12 +40,17 @@ public class TreeMinigame : MonoBehaviour
             if (RFIDManager.instance.HasAxe() && RFIDManager.instance.IsButtonPressed())
             {
                 StartMinigame();
+                if (StartSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(StartSound, transform.position);
+                }
             }
         }
 
         if (minigameActive)
         {
             UpdateMinigame();
+           
         }
     }
 
@@ -65,6 +76,10 @@ public class TreeMinigame : MonoBehaviour
         {
             currentClicks++;
             currentProgress = currentClicks;
+            if (ChopSound != null)
+            {
+                AudioSource.PlayClipAtPoint(ChopSound, transform.position);
+            }
         }
 
         currentProgress -= decaySpeed * Time.deltaTime;
@@ -89,14 +104,21 @@ public class TreeMinigame : MonoBehaviour
         if (currentClicks >= clicksRequired)
         {
             SuccessMinigame();
+            if (SuccessSound != null)
+            {
+                AudioSource.PlayClipAtPoint(SuccessSound, transform.position);
+            }
         }
 
         if (!playerInZone)
         {
             FailMinigame();
+            if (FailSound != null)
+            {
+                AudioSource.PlayClipAtPoint(FailSound, transform.position);
         }
     }
-
+    }   
     private void SuccessMinigame()
     {
         minigameActive = false;
@@ -105,6 +127,7 @@ public class TreeMinigame : MonoBehaviour
             minigameUI.SetActive(false);
 
         BreakTree();
+        
     }
 
     private void FailMinigame()
