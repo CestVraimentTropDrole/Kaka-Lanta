@@ -18,6 +18,7 @@ public class EventSystem : MonoBehaviour
     
     // États des événements actifs
     [HideInInspector] public bool doubleWoodEvent = false;
+    [HideInInspector] public bool doubleStoneEvent = false;
     [HideInInspector] public bool tempeteEvent = false;
     
     private int daysUntilNextEvent;
@@ -38,7 +39,9 @@ public class EventSystem : MonoBehaviour
     void Start()
     {
         if (eventPanel != null)
+        {
             eventPanel.SetActive(false);
+        }
             
         // Premier événement dans 2-3 tours
         daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
@@ -71,12 +74,16 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 2);
+        int randomEvent = Random.Range(0, 3);
         
         switch (randomEvent)
         {
             case 0:
                 DoubleWoodEvent();
+                break;
+            
+            case 1:
+                DoubleStoneEvent();
                 break;
         }
     }
@@ -87,15 +94,23 @@ public class EventSystem : MonoBehaviour
     {
         doubleWoodEvent = true;
         currentEventDuration = 2;
-        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 tours !", Color.green);
+        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 jours !", Color.green);
         Debug.Log("Événement : Bois x2");
+    }
+
+    private void DoubleStoneEvent()
+    {
+        doubleWoodEvent = true;
+        currentEventDuration = 2;
+        ShowEvent("Mine Généreuse", "La pierre récoltée est doublé pendant 2 jours !", Color.green);
+        Debug.Log("Événement : Pierre x2");
     }
 
     public void TempeteEvent()
     {
         tempeteEvent = true;
         currentEventDuration = 1;
-        ShowEvent("Tempête", "...", Color.green);
+        ShowEvent("Tempête", "Dernier jour pour construire radeau !", Color.green);
     }
 
     // ========== GESTION DES ÉVÉNEMENTS ==========
@@ -103,6 +118,7 @@ public class EventSystem : MonoBehaviour
     private void EndCurrentEvent()
     {
         doubleWoodEvent = false;
+        doubleStoneEvent = false;
         tempeteEvent = false;
     }
 
@@ -132,7 +148,9 @@ public class EventSystem : MonoBehaviour
         yield return new WaitForSeconds(eventDisplayDuration);
         
         if (eventPanel != null)
+        {
             eventPanel.SetActive(false);
+        }
     }
 
     // ========== GETTERS POUR LES AUTRES SCRIPTS ==========
@@ -140,5 +158,10 @@ public class EventSystem : MonoBehaviour
     public int GetWoodMultiplier()
     {
         return doubleWoodEvent ? 2 : 1;
+    }
+
+    public int GetStoneMultiplier()
+    {
+        return doubleStoneEvent ? 2 : 1;
     }
 }

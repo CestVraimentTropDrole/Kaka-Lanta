@@ -35,7 +35,24 @@ public class StoneResource : MonoBehaviour
         {
             return;
         }
-            Inventory.instance.AddStone(1);
+        
+        int baseAmount = RFIDManager.instance.HasPioche() ? 1 : 1;
+        
+        if (EventSystem.instance != null)
+        {
+            baseAmount *= EventSystem.instance.GetWoodMultiplier();
+        }
+
+        Inventory.instance.AddStone(baseAmount);
+
+        if (EventSystem.instance != null && EventSystem.instance.doubleStoneEvent)
+        {
+            Debug.Log($"Bois récolté : {baseAmount}");
+        }
+        else
+        {
+            Debug.Log($"Bois récolté : {baseAmount}");
+        }
 
         Destroy(gameObject);
     }
