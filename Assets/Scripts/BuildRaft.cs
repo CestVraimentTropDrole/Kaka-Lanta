@@ -22,6 +22,8 @@ public class BuildRaft : MonoBehaviour
     private bool playerInZone = false;
     public bool RaftisBuilt = false;
 
+    [Header("Sound")]
+    public AudioClip BuildSound;
 
     void Awake()
     {
@@ -67,11 +69,19 @@ public class BuildRaft : MonoBehaviour
         if (canBuild && Input.GetKeyDown(KeyCode.E))
         {
             Build();
+             if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
         
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             Build();
+             if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
     }
 
