@@ -18,6 +18,7 @@ public class EventSystem : MonoBehaviour
     
     // États des événements actifs
     [HideInInspector] public bool doubleWoodEvent = false;
+    [HideInInspector] public bool tempeteEvent = false;
     
     private int turnsUntilNextEvent;
     private int currentEventDuration = 0;
@@ -90,11 +91,19 @@ public class EventSystem : MonoBehaviour
         Debug.Log("Événement : Bois x2");
     }
 
+    public void TempeteEvent()
+    {
+        tempeteEvent = true;
+        currentEventDuration = 1;
+        ShowEvent("Tempête", "...", Color.green);
+    }
+
     // ========== GESTION DES ÉVÉNEMENTS ==========
 
     private void EndCurrentEvent()
     {
         doubleWoodEvent = false;
+        tempeteEvent = false;
     }
 
     private void ShowEvent(string title, string description, Color color)

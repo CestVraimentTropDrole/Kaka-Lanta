@@ -27,6 +27,7 @@ public class TurnSystem : MonoBehaviour
     private PlayersManager manager;
     private int totalPlayers;
     private int currentDay = 1;
+    private bool tempeteTriggered = false;
 
 
     private bool playerInHouse = false;
@@ -61,6 +62,16 @@ public class TurnSystem : MonoBehaviour
         {
             manager.NextPlayer();
             EndTurn();
+        }
+
+        if (currentDay >= maxDays && !tempeteTriggered)
+        {
+            tempeteTriggered = true;
+            if (EventSystem.instance != null)
+            {
+                EventSystem.instance.TempeteEvent();
+                Debug.Log("Event tempête en cours");
+            }
         }
     }
 
