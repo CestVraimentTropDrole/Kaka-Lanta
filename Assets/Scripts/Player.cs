@@ -20,9 +20,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        moveInput.x = Input.GetAxisRaw(horizontalAxis);
-        moveInput.y = Input.GetAxisRaw(verticalAxis);
+        moveInput = Vector2.zero;
+
+        if (RFIDManager.instance.AL()) moveInput.x = -1;
+        if (RFIDManager.instance.AR()) moveInput.x = 1;
+        if (RFIDManager.instance.AU()) moveInput.y = 1;
+        if (RFIDManager.instance.AD()) moveInput.y = -1;
     }
+
 
     void FixedUpdate()
     {
