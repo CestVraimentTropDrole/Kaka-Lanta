@@ -93,7 +93,7 @@ public class EventSystem : MonoBehaviour
     private void DoubleWoodEvent()
     {
         doubleWoodEvent = true;
-        currentEventDuration = 2;
+        currentEventDuration = 1;
         ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 jours !", Color.green);
         Debug.Log("Événement : Bois x2");
     }
@@ -101,7 +101,7 @@ public class EventSystem : MonoBehaviour
     private void DoubleStoneEvent()
     {
         doubleWoodEvent = true;
-        currentEventDuration = 2;
+        currentEventDuration = 1;
         ShowEvent("Mine Généreuse", "La pierre récoltée est doublé pendant 2 jours !", Color.green);
         Debug.Log("Événement : Pierre x2");
     }
