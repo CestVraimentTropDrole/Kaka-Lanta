@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO.Ports;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class TurnSystem : MonoBehaviour
 
     [SerializeField] private float turnDuration = 30f;
     [SerializeField] private TMP_Text turnNumberText;
-    [SerializeField] private float maxTurns = 10;
+    [SerializeField] private float maxDays = 10;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private GameObject endTurnButton;
 
@@ -23,6 +24,9 @@ public class TurnSystem : MonoBehaviour
     private int currentTurn = 1;
     private float currentTurnTime;
     private bool turnActive = true;
+    private PlayersManager manager;
+    private int totalPlayers;
+    private int currentDay = 1;
 
 
     private bool playerInHouse = false;
@@ -34,18 +38,18 @@ public class TurnSystem : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null) { instance = this; }
+        else { Destroy(gameObject); }
     }
 
     void Start()
     {
+        manager = FindFirstObjectByType<PlayersManager>();
+        if (manager == null) { Debug.LogError("PlayersManager non trouvé dans la scène !"); }
+
+        totalPlayers = manager.GetNumberOfPlayers();
+        Debug.Log("TurnSystem Start() Total players: " + totalPlayers);
+
         StartNewTurn();
     }
 
@@ -59,6 +63,7 @@ public class TurnSystem : MonoBehaviour
 
         if (currentTurnTime <= 0)
         {
+            manager.NextPlayer();
             EndTurn();
         }
     }
@@ -94,7 +99,22 @@ public class TurnSystem : MonoBehaviour
     {
         currentTurn++;
 
-        if (maxTurns > 0 && currentTurn > maxTurns)
+        if (currentTurn % totalPlayers == 1)    // Quand tous les joueurs ont fini leur tour
+        {
+            currentDay++;   // Change de jour
+            if (GameData.instance != null) { 
+                GameData.instance.SetCurrentRound(currentDay);  // Sauvegarde le jour actuel
+                manager.SavePlayers();  // Sauvegarde les joueurs
+                Debug.Log("Joueurs sauvegardés dans GameData.");
+            }
+
+            Debug.Log($"Nouveau jour {currentDay} !");
+            Debug.Log($"Lancement mini-jeu");
+
+            SceneManager.LoadScene("MinigamesScene");    // Change vers la scène de mini-jeu
+        }
+
+        if (maxDays > 0 && currentTurn > maxDays)
         {
             EndGame();
             return;
@@ -107,10 +127,10 @@ public class TurnSystem : MonoBehaviour
     {
         if (turnNumberText != null)
         {
-            if (maxTurns > 0)
-                turnNumberText.text = $"Tour {currentTurn}/{maxTurns}";
+            if (maxDays > 0)
+                turnNumberText.text = $"Jour {currentDay}/{maxDays} \n Tour Joueur {((currentTurn - 1) % totalPlayers) + 1}/{totalPlayers}";
             else
-                turnNumberText.text = $"Tour {currentTurn}";
+                turnNumberText.text = $"Jour {currentTurn}";
         }
 
         if (timerText != null)
@@ -123,8 +143,10 @@ public class TurnSystem : MonoBehaviour
 
     private void OnTurnStart()
     {
-        // Actions au début de chaque tour
-
+        if (EventSystem.instance != null)
+        {
+            EventSystem.instance.OnTurnStart();
+        }
     }
 
     private void OnTurnEnd()

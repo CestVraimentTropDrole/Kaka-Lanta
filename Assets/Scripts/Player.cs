@@ -6,17 +6,28 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    public int playerNumber = 1; // 1, 2, 3 ou 4
+    private string horizontalAxis;
+    private string verticalAxis;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Récupérer les entrées du clavier
+        horizontalAxis = "Horizontal" + playerNumber;
+        verticalAxis = "Vertical" + playerNumber;
     }
 
     void Update()
     {
-        // Récupérer les entrées du clavier
-        moveInput.x = Input.GetAxisRaw("Horizontal"); // A/D ou Flèches gauche/droite
-        moveInput.y = Input.GetAxisRaw("Vertical");   // W/S ou Flèches haut/bas
+        moveInput = Vector2.zero;
+
+        if (RFIDManager.instance.AL()) moveInput.x = -1;
+        if (RFIDManager.instance.AR()) moveInput.x = 1;
+        if (RFIDManager.instance.AU()) moveInput.y = 1;
+        if (RFIDManager.instance.AD()) moveInput.y = -1;
     }
+
 
     void FixedUpdate()
     {

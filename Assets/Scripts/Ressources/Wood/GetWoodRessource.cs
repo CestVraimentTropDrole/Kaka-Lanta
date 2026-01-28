@@ -36,13 +36,22 @@ public class WoodResource : MonoBehaviour
             return;
         }
 
-        if (RFIDManager.instance.HasAxe())
+        int baseAmount = RFIDManager.instance.HasAxe() ? 1 : 1;
+
+        if (EventSystem.instance != null)
         {
-            Inventory.instance.AddWood(2);
+            baseAmount *= EventSystem.instance.GetWoodMultiplier();
+        }
+
+        Inventory.instance.AddWood(baseAmount);
+
+        if (EventSystem.instance != null && EventSystem.instance.doubleWoodEvent)
+        {
+            Debug.Log($"Bois récolté : {baseAmount}");
         }
         else
         {
-            Inventory.instance.AddWood(1);
+            Debug.Log($"Bois récolté : {baseAmount}");
         }
 
         Destroy(gameObject);
