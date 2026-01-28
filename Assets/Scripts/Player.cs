@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private string horizontalAxis;
     private string verticalAxis;
 
+    public Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +37,19 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        animator.SetFloat("RightSpeed", moveInput.x);
+        animator.SetFloat("UpSpeed", moveInput.y);
+
+        int direction = 0;
+        if (moveInput.x > 0) direction = 1;       // Droite
+        else if (moveInput.x < 0) direction = 3;  // Gauche
+        else if (moveInput.y > 0) direction = 2;  // Haut
+        else if (moveInput.y < 0) direction = 4;  // Bas
+
+        animator.SetInteger("Direction", direction);
+
+        Debug.Log("Mouvement - Player " + playerNumber + "/ MoveInput: " + moveInput);
+
         // Déplacer le personnage
         rb.MovePosition(rb.position + moveInput.normalized * moveSpeed * Time.fixedDeltaTime);
     }
