@@ -8,12 +8,11 @@ public class PlayerHunger : MonoBehaviour
     public HungerBar hungerBar;
 
     [Header("Dégâts de famine")]
-    [SerializeField] private int starvationDamage = 20;
+    [SerializeField] private int starvationDamage = 1;
 
     void Start()
     {
         currentHunger = maxHunger;
-        hungerBar.SetMaxHunger(maxHunger);
     }
 
     void Update()
@@ -34,8 +33,6 @@ public class PlayerHunger : MonoBehaviour
             currentHunger = 0;
         }
 
-        hungerBar.SetHunger(currentHunger);
-
         if (currentHunger == 0)
         {
             ApplyStarvationDamage();
@@ -50,8 +47,6 @@ public class PlayerHunger : MonoBehaviour
         {
             currentHunger = maxHunger;
         }
-
-        hungerBar.SetHunger(currentHunger);
     }
 
     public void LoseHungerFromTurn(int hunger)

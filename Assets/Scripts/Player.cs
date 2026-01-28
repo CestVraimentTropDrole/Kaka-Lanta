@@ -6,16 +6,22 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    public int playerNumber = 1; // 1, 2, 3 ou 4
+    private string horizontalAxis;
+    private string verticalAxis;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Récupérer les entrées du clavier
+        horizontalAxis = "Horizontal" + playerNumber;
+        verticalAxis = "Vertical" + playerNumber;
     }
 
     void Update()
     {
-        // Récupérer les entrées du clavier
-        moveInput.x = Input.GetAxisRaw("Horizontal"); // A/D ou Flèches gauche/droite
-        moveInput.y = Input.GetAxisRaw("Vertical");   // W/S ou Flèches haut/bas
+        moveInput.x = Input.GetAxisRaw(horizontalAxis);
+        moveInput.y = Input.GetAxisRaw(verticalAxis);
     }
 
     void FixedUpdate()
