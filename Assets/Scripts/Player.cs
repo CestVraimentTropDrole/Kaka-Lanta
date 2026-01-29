@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private string horizontalAxis;
     private string verticalAxis;
 
+    private bool isAttacking = false;
+
     public Animator animator;
 
     void Start()
@@ -32,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
             moveInput.y = 0;
             moveInput.x = 0;
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
+        {
+            isAttacking = true;
+            animator.SetTrigger("Attack");
+        }
     }
 
 
@@ -48,9 +56,12 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetInteger("Direction", direction);
 
-        Debug.Log("Mouvement - Player " + playerNumber + "/ MoveInput: " + moveInput);
-
         // Déplacer le personnage
         rb.MovePosition(rb.position + moveInput.normalized * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void FinishAttack()  // Fonction appelée à la fin de l'animation d'attaque
+    {
+        isAttacking = false;
     }
 }
