@@ -8,10 +8,14 @@ public class RFIDManager : MonoBehaviour
 
     [SerializeField] private string portName_m1 = "COM8";
     [SerializeField] private string portName_m2 = "COM10";
+    [SerializeField] private string portName_m3 = "COM6";
+    [SerializeField] private string portName_m3 = "COM11";
     [SerializeField] private int baudRate = 9600;
 
     private SerialPort serial1;
     private SerialPort serial2;
+    private SerialPort serial3;
+    private SerialPort serial4;
 
     private string lastRFID = "";
     private bool buttonJustPressed = false;
@@ -29,7 +33,14 @@ public class RFIDManager : MonoBehaviour
         PlayersManager pm = FindObjectOfType<PlayersManager>();
         if (pm == null) return null;
 
-        return pm.currentPlayer == 0 ? serial1 : serial2;
+        switch (pm.currentPlayer)
+        {
+            case 0: return serial1;
+            case 1: return serial2;
+            case 2: return serial3;
+            case 3: return serial4;
+            default: return null;
+        }
     }
 
 
@@ -56,6 +67,16 @@ public class RFIDManager : MonoBehaviour
             serial2.ReadTimeout = 100;
             serial2.Open();
             Debug.Log("Arduino 2 connecté");
+
+            serial3 = new SerialPort(portName_m3, baudRate);
+            serial3.ReadTimeout = 100;
+            serial3.Open();
+            Debug.Log("Arduino 3 connecté");
+
+            serial4 = new SerialPort(portName_m4, baudRate);
+            serial4.ReadTimeout = 100;
+            serial4.Open();
+            Debug.Log("Arduino 3 connecté");
         }
         catch (Exception e)
         {
@@ -66,7 +87,7 @@ public class RFIDManager : MonoBehaviour
     void Update()
     {
         buttonJustPressed = false;
-        _AL = _AR = _AU = _AD = _C = false; // A delete pour jouer au joystick
+        //_AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
 
         SerialPort activeSerial = GetActiveSerial();
 
@@ -155,6 +176,16 @@ public class RFIDManager : MonoBehaviour
         if (serial2 != null && serial2.IsOpen)
         {
             serial2.Close();
+        }
+
+        if (serial3 != null && serial3.IsOpen)
+        {
+            serial3.Close();
+        }
+
+        if (serial4 != null && serial4.IsOpen)
+        {
+            serial4.Close();
         }
     }
 }
