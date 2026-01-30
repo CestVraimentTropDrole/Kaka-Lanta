@@ -11,6 +11,7 @@ public class TurnSystem : MonoBehaviour
     [Header("Config des tours")]
 
     [SerializeField] private float turnDuration = 45f;
+    [SerializeField] private float shortTurnDuration = 30f;
     [SerializeField] private TMP_Text turnNumberText;
     [SerializeField] private float maxDays = 10;
     [SerializeField] private TMP_Text timerText;
@@ -25,10 +26,10 @@ public class TurnSystem : MonoBehaviour
     private float currentTurnTime;
     private bool turnActive = true;
     private PlayersManager manager;
-    private int totalPlayers;
+    public int totalPlayers;
     public int currentDay = 1;
     private bool tempeteTriggered = false;
-    private bool shortDay = false;
+    private bool isShortDay = false;
     private bool playerInHouse = false;
     private bool playerNearCampfire = false;
 
@@ -76,22 +77,13 @@ public class TurnSystem : MonoBehaviour
                 Debug.Log("Event tempête en cours");
             }
         }
-
-
-        if (!shortDay)
-        {   
-            shortDay = true;
-            if (EventSystem.instance != null && EventSystem.instance.shortDay == true)
-            {
-                EventSystem.instance.ShortDay();
-                turnDuration = 30f; 
-            }
-        }
     }
 
     private void StartNewTurn()
     {
-        currentTurnTime = turnDuration;
+        float duration = isShortDay ? shortTurnDuration : turnDuration;
+        currentTurnTime = duration;
+
         turnActive = true;
 
         Debug.Log($"Tour {currentTurn} commence !");
@@ -123,6 +115,9 @@ public class TurnSystem : MonoBehaviour
         if (currentTurn % totalPlayers == 1)    // Quand tous les joueurs ont fini leur tour
         {
             currentDay++;   // Change de jour
+
+            isShortDay = false;
+
             if (GameData.instance != null) { 
                 GameData.instance.SetCurrentRound(currentDay);  // Sauvegarde le jour actuel
                 manager.SavePlayers();  // Sauvegarde les joueurs
@@ -205,6 +200,11 @@ public class TurnSystem : MonoBehaviour
     public void SetPlayerNearCampfire(bool nearCampfire)
     {
         playerNearCampfire = nearCampfire;
+    }
+
+    public void SetShortDay(bool shortDay)
+    {
+        isShortDay = shortDay;
     }
 
     private int CalculateHungerLoss()

@@ -19,17 +19,19 @@ public class EventSystem : MonoBehaviour
     // États des événements actifs
     [HideInInspector] public bool doubleWoodEvent = false;
     [HideInInspector] public bool doubleStoneEvent = false;
-    [HideInInspector] public bool shortDay = false;
+    [HideInInspector] public bool shortDayEvent = false;
     [HideInInspector] public bool tempeteEvent = false;
     
     private int daysUntilNextEvent;
     private int currentEventDuration = 0;
+    private int currentTurnInDay = 0;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -43,13 +45,28 @@ public class EventSystem : MonoBehaviour
         {
             eventPanel.SetActive(false);
         }
-            
-        // Premier événement dans 2-3 tours
-        daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
+        if (daysUntilNextEvent == 0)
+        {
+            // Premier événement dans 2-3 tours
+            daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
+            currentTurnInDay = 1;
+        }   
     }
 
     public void OnTurnStart()
-    {
+    {   
+        if (TurnSystem.instance == null)
+        {
+            return;
+        }
+        currentTurnInDay++;
+
+        if (currentTurnInDay > TurnSystem.instance.totalPlayers)
+        {
+            currentTurnInDay = 1;
+            OnDayStart();
+        }
+
         // Réduire la durée des événements
         if (currentEventDuration > 0)
         {
@@ -59,6 +76,11 @@ public class EventSystem : MonoBehaviour
                 EndCurrentEvent();
             }
         }
+    }
+
+    private void OnDayStart()
+    {
+        currentTurnInDay = 1;
         
         // Vérifier si c'est le moment d'un nouvel événement
         daysUntilNextEvent--;
@@ -75,7 +97,7 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 5);
+        int randomEvent = Random.Range(0, 3);
         
         switch (randomEvent)
         {
@@ -98,23 +120,29 @@ public class EventSystem : MonoBehaviour
     private void DoubleWoodEvent()
     {
         doubleWoodEvent = true;
-        currentEventDuration = 1;
+        currentEventDuration = TurnSystem.instance.totalPlayers;
         ShowEvent("Forêt Généreuse", "Le bois récolté est doublé aujourd'hui !", Color.green);
         Debug.Log("Événement : Bois x2");
     }
 
     private void DoubleStoneEvent()
     {
-        doubleWoodEvent = true;
-        currentEventDuration = 1;
+        doubleStoneEvent = true;
+        currentEventDuration = TurnSystem.instance.totalPlayers;
         ShowEvent("Mine Généreuse", "La pierre récoltée est doublé aujourd'hui !", Color.green);
         Debug.Log("Événement : Pierre x2");
     }
 
     public void ShortDay()
     {
-        shortDay = true;
-        currentEventDuration = 1;
+        shortDayEvent = true;
+        currentEventDuration = TurnSystem.instance.totalPlayers;
+
+        if (TurnSystem.instance != null)
+        {
+            TurnSystem.instance.SetShortDay(true);
+        }
+
         ShowEvent("On a gagné du temps..", "Le jour est plus court, personne ne sait pourquoi..", Color.green);
         Debug.Log("Événement : Short Day");
     }
@@ -132,8 +160,13 @@ public class EventSystem : MonoBehaviour
     {
         doubleWoodEvent = false;
         doubleStoneEvent = false;
-        shortDay = false;
+        shortDayEvent = false;
         tempeteEvent = false;
+
+        if (TurnSystem.instance != null)
+        {
+            TurnSystem.instance.SetShortDay(false);
+        }
     }
 
     private void ShowEvent(string title, string description, Color color)
@@ -177,5 +210,10 @@ public class EventSystem : MonoBehaviour
     public int GetStoneMultiplier()
     {
         return doubleStoneEvent ? 2 : 1;
+    }
+
+    public bool IsShortDay()
+    {
+        return shortDayEvent;
     }
 }
