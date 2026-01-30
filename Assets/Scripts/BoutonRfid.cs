@@ -9,7 +9,7 @@ public class RFIDManager : MonoBehaviour
     [SerializeField] private string portName_m1 = "COM8";
     [SerializeField] private string portName_m2 = "COM10";
     [SerializeField] private string portName_m3 = "COM6";
-    [SerializeField] private string portName_m3 = "COM11";
+    [SerializeField] private string portName_m4 = "COM11";
     [SerializeField] private int baudRate = 9600;
 
     private SerialPort serial1;
@@ -30,7 +30,7 @@ public class RFIDManager : MonoBehaviour
 
     private SerialPort GetActiveSerial()
     {
-        PlayersManager pm = FindObjectOfType<PlayersManager>();
+        PlayersManager pm = FindFirstObjectByType<PlayersManager>();
         if (pm == null) return null;
 
         switch (pm.currentPlayer)
@@ -87,7 +87,7 @@ public class RFIDManager : MonoBehaviour
     void Update()
     {
         buttonJustPressed = false;
-        //_AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
+        _AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
 
         SerialPort activeSerial = GetActiveSerial();
 
