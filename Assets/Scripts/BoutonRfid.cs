@@ -9,7 +9,7 @@ public class RFIDManager : MonoBehaviour
     [SerializeField] private string portName_m1 = "COM8";
     [SerializeField] private string portName_m2 = "COM10";
     [SerializeField] private string portName_m3 = "COM6";
-    [SerializeField] private string portName_m3 = "COM11";
+    [SerializeField] private string portName_m4 = "COM11";
     [SerializeField] private int baudRate = 9600;
 
     private SerialPort serial1;
