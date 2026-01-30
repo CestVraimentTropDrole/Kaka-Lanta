@@ -28,7 +28,7 @@ public class TurnSystem : MonoBehaviour
     private int totalPlayers;
     public int currentDay = 1;
     private bool tempeteTriggered = false;
-
+    private bool shortDay = false;
     private bool playerInHouse = false;
     private bool playerNearCampfire = false;
 
@@ -74,10 +74,14 @@ public class TurnSystem : MonoBehaviour
         }
 
 
-        if (EventSystem.instance != null && EventSystem.instance.shortDay == true)
-        {
-            EventSystem.instance.ShortDay();
-            turnDuration = 30f;
+        if (!shortDay)
+        {   
+            shortDay = true;
+            if (EventSystem.instance != null && EventSystem.instance.shortDay == true)
+            {
+                EventSystem.instance.ShortDay();
+                turnDuration = 30f; 
+            }
         }
     }
 
