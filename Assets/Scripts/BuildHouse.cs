@@ -19,6 +19,9 @@ public class BuildingGhost : MonoBehaviour
     private bool playerInZone = false;
     private bool isBuilt = false;
 
+    [Header("Sound")]
+    public AudioClip BuildSound;
+
     void Start()
     {
         // Récupérer tous les SpriteRenderer pour les rendre transparents
@@ -56,12 +59,20 @@ public class BuildingGhost : MonoBehaviour
         if (canBuild && Input.GetKeyDown(KeyCode.E))
         {
             Build();
+            if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
         
         // Alternative: construction avec le bouton RFID
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             Build();
+            if (BuildSound != null)
+    {
+        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+    }
         }
     }
 

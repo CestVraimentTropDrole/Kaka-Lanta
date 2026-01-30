@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private string verticalAxis;
     //private PlayerHunger playerHunger;
 
+    private bool isAttacking = false;
+
+    public Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,12 +38,39 @@ public class PlayerMovement : MonoBehaviour
 //        {
 //            playerHunger.LoseHungerOverTime(playerHunger.hungerPerSecondMoving * Time.deltaTime);
 //        }
+
+        if (RFIDManager.instance.C()) {
+            moveInput.y = 0;
+            moveInput.x = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
+        {
+            isAttacking = true;
+            animator.SetTrigger("Attack");
+        }
     }
 
 
     void FixedUpdate()
     {
+        animator.SetFloat("RightSpeed", moveInput.x);
+        animator.SetFloat("UpSpeed", moveInput.y);
+
+        int direction = 0;
+        if (moveInput.x > 0) direction = 1;       // Droite
+        else if (moveInput.x < 0) direction = 3;  // Gauche
+        else if (moveInput.y > 0) direction = 2;  // Haut
+        else if (moveInput.y < 0) direction = 4;  // Bas
+
+        animator.SetInteger("Direction", direction);
+
         // Déplacer le personnage
         rb.MovePosition(rb.position + moveInput.normalized * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void FinishAttack()  // Fonction appelée à la fin de l'animation d'attaque
+    {
+        isAttacking = false;
     }
 }
