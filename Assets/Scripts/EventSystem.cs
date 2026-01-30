@@ -7,8 +7,8 @@ public class EventSystem : MonoBehaviour
     public static EventSystem instance;
 
     [Header("Configuration")]
-    [SerializeField] private int minTurnsBetweenEvents = 2;
-    [SerializeField] private int maxTurnsBetweenEvents = 3;
+    [SerializeField] private int minDaysBetweenEvents = 2;
+    [SerializeField] private int maxDaysBetweenEvents = 3;
     
     [Header("UI")]
     [SerializeField] private GameObject eventPanel;
@@ -18,8 +18,11 @@ public class EventSystem : MonoBehaviour
     
     // États des événements actifs
     [HideInInspector] public bool doubleWoodEvent = false;
+    [HideInInspector] public bool doubleStoneEvent = false;
+    [HideInInspector] public bool shortDay = false;
+    [HideInInspector] public bool tempeteEvent = false;
     
-    private int turnsUntilNextEvent;
+    private int daysUntilNextEvent;
     private int currentEventDuration = 0;
 
     void Awake()
@@ -37,10 +40,12 @@ public class EventSystem : MonoBehaviour
     void Start()
     {
         if (eventPanel != null)
+        {
             eventPanel.SetActive(false);
+        }
             
         // Premier événement dans 2-3 tours
-        turnsUntilNextEvent = Random.Range(minTurnsBetweenEvents, maxTurnsBetweenEvents + 1);
+        daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
     }
 
     public void OnTurnStart()
@@ -56,11 +61,11 @@ public class EventSystem : MonoBehaviour
         }
         
         // Vérifier si c'est le moment d'un nouvel événement
-        turnsUntilNextEvent--;
-        if (turnsUntilNextEvent <= 0)
+        daysUntilNextEvent--;
+        if (daysUntilNextEvent <= 0)
         {
             TriggerRandomEvent();
-            turnsUntilNextEvent = Random.Range(minTurnsBetweenEvents, maxTurnsBetweenEvents + 1);
+            daysUntilNextEvent = Random.Range(minDaysBetweenEvents, maxDaysBetweenEvents + 1);
         }
     }
 
@@ -70,12 +75,20 @@ public class EventSystem : MonoBehaviour
         EndCurrentEvent();
         
         // Choisir un événement aléatoire
-        int randomEvent = Random.Range(0, 0);
+        int randomEvent = Random.Range(0, 5);
         
         switch (randomEvent)
         {
             case 0:
                 DoubleWoodEvent();
+                break;
+            
+            case 1:
+                DoubleStoneEvent();
+                break;
+            
+            case 2:
+                ShortDay();
                 break;
         }
     }
@@ -85,9 +98,32 @@ public class EventSystem : MonoBehaviour
     private void DoubleWoodEvent()
     {
         doubleWoodEvent = true;
-        currentEventDuration = 2; // Dure 2 tours
-        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé pendant 2 tours !", Color.green);
+        currentEventDuration = 1;
+        ShowEvent("Forêt Généreuse", "Le bois récolté est doublé aujourd'hui !", Color.green);
         Debug.Log("Événement : Bois x2");
+    }
+
+    private void DoubleStoneEvent()
+    {
+        doubleWoodEvent = true;
+        currentEventDuration = 1;
+        ShowEvent("Mine Généreuse", "La pierre récoltée est doublé aujourd'hui !", Color.green);
+        Debug.Log("Événement : Pierre x2");
+    }
+
+    public void ShortDay()
+    {
+        shortDay = true;
+        currentEventDuration = 1;
+        ShowEvent("On a gagné du temps..", "Le jour est plus court, personne ne sait pourquoi..", Color.green);
+        Debug.Log("Événement : Short Day");
+    }
+
+    public void TempeteEvent()
+    {
+        tempeteEvent = true;
+        currentEventDuration = 1;
+        ShowEvent("Tempête", "Dernier jour pour construire radeau !", Color.green);
     }
 
     // ========== GESTION DES ÉVÉNEMENTS ==========
@@ -95,6 +131,9 @@ public class EventSystem : MonoBehaviour
     private void EndCurrentEvent()
     {
         doubleWoodEvent = false;
+        doubleStoneEvent = false;
+        shortDay = false;
+        tempeteEvent = false;
     }
 
     private void ShowEvent(string title, string description, Color color)
@@ -123,7 +162,9 @@ public class EventSystem : MonoBehaviour
         yield return new WaitForSeconds(eventDisplayDuration);
         
         if (eventPanel != null)
+        {
             eventPanel.SetActive(false);
+        }
     }
 
     // ========== GETTERS POUR LES AUTRES SCRIPTS ==========
@@ -131,5 +172,10 @@ public class EventSystem : MonoBehaviour
     public int GetWoodMultiplier()
     {
         return doubleWoodEvent ? 2 : 1;
+    }
+
+    public int GetStoneMultiplier()
+    {
+        return doubleStoneEvent ? 2 : 1;
     }
 }

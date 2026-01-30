@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public int playerNumber = 1; // 1, 2, 3 ou 4
     private string horizontalAxis;
     private string verticalAxis;
+    //private PlayerHunger playerHunger;
 
     private bool isAttacking = false;
 
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
         // Récupérer les entrées du clavier
         horizontalAxis = "Horizontal" + playerNumber;
         verticalAxis = "Vertical" + playerNumber;
+
+        //playerHunger = GetComponent<PlayerHunger>();
     }
 
     void Update()
@@ -30,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
         if (RFIDManager.instance.AR()) moveInput.x = 1;
         if (RFIDManager.instance.AU()) moveInput.y = 1;
         if (RFIDManager.instance.AD()) moveInput.y = -1;
+
+//        if (playerHunger != null && moveInput.magnitude > 0)
+//        {
+//            playerHunger.LoseHungerOverTime(playerHunger.hungerPerSecondMoving * Time.deltaTime);
+//        }
+
         if (RFIDManager.instance.C()) {
             moveInput.y = 0;
             moveInput.x = 0;

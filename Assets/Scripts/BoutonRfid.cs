@@ -6,10 +6,12 @@ public class RFIDManager : MonoBehaviour
 {
     public static RFIDManager instance;
 
-    [SerializeField] private string portName = "COM8";
+    [SerializeField] private string portName_m1 = "COM8";
+    [SerializeField] private string portName_m2 = "COM10";
     [SerializeField] private int baudRate = 9600;
 
-    private SerialPort serial;
+    private SerialPort serial1;
+    private SerialPort serial2;
 
     private string lastRFID = "";
     private bool buttonJustPressed = false;
@@ -21,6 +23,15 @@ public class RFIDManager : MonoBehaviour
     public bool AU() => _AU;
     public bool AD() => _AD;
     public bool C() => _C;
+
+    private SerialPort GetActiveSerial()
+    {
+        PlayersManager pm = FindObjectOfType<PlayersManager>();
+        if (pm == null) return null;
+
+        return pm.currentPlayer == 0 ? serial1 : serial2;
+    }
+
 
     void Awake()
     {
@@ -36,10 +47,15 @@ public class RFIDManager : MonoBehaviour
     {
         try
         {
-            serial = new SerialPort(portName, baudRate);
-            serial.ReadTimeout = 100;
-            serial.Open();
-            Debug.Log("Arduino connecté");
+            serial1 = new SerialPort(portName_m1, baudRate);
+            serial1.ReadTimeout = 100;
+            serial1.Open();
+            Debug.Log("Arduino 1 connecté");
+
+            serial2 = new SerialPort(portName_m2, baudRate);
+            serial2.ReadTimeout = 100;
+            serial2.Open();
+            Debug.Log("Arduino 2 connecté");
         }
         catch (Exception e)
         {
@@ -52,11 +68,13 @@ public class RFIDManager : MonoBehaviour
         buttonJustPressed = false;
         _AL = _AR = _AU = _AD = _C = false; // A delete pour jouer au joystick
 
-        if (serial != null && serial.IsOpen && serial.BytesToRead > 0)
+        SerialPort activeSerial = GetActiveSerial();
+
+        if (activeSerial != null && activeSerial.IsOpen && activeSerial.BytesToRead > 0)
         {
             try
             {
-                string data = serial.ReadLine().Trim();
+                string data = activeSerial.ReadLine().Trim();
                 Debug.Log(data);
 
                 // ---------- RFID ----------
@@ -129,7 +147,14 @@ public class RFIDManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        if (serial != null && serial.IsOpen)
-            serial.Close();
+        if (serial1 != null && serial1.IsOpen)
+        {
+            serial1.Close();
+        }
+
+        if (serial2 != null && serial2.IsOpen)
+        {
+            serial2.Close();
+        }
     }
 }

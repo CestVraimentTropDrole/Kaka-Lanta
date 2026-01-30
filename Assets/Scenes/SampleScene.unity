@@ -18804,13 +18804,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c851ffd950e014a80620955d8467ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnDuration: 30
+  turnDuration: 45
   turnNumberText: {fileID: 228464700}
   maxDays: 10
   timerText: {fileID: 691775235}
   endTurnButton: {fileID: 1772037965}
   houseHungerReduction: 0.5
   campfireHungerReduction: 0.25
+  currentDay: 1
   turnStartSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
   turnEndSound: {fileID: 8300000, guid: 1553c4a0f9bc7714cacc37a6d8815c2b, type: 3}
 --- !u!4 &627056643
@@ -19540,7 +19541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c80bcbd4f5389f4cb8c47949416bcee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: COM8
+  portName_m1: COM8
+  portName_m2: COM10
   baudRate: 9600
 --- !u!4 &780980980
 Transform:
@@ -23296,13 +23298,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0e871095a147e4eb8bf198d09873e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTurnsBetweenEvents: 2
-  maxTurnsBetweenEvents: 3
+  minDaysBetweenEvents: 2
+  maxDaysBetweenEvents: 3
   eventPanel: {fileID: 1512485072}
   eventTitleText: {fileID: 1524851974}
   eventDescriptionText: {fileID: 1624162532}
   eventDisplayDuration: 5
   doubleWoodEvent: 0
+  doubleStoneEvent: 0
+  shortDay: 0
+  tempeteEvent: 0
 --- !u!4 &1721241326
 Transform:
   m_ObjectHideFlags: 0

@@ -3,12 +3,15 @@ using UnityEngine;
 public class PlayerHunger : MonoBehaviour
 {
     public int maxHunger = 6;
-    public int currentHunger;
+    public float currentHunger;
 
     public HungerBar hungerBar;
 
     [Header("Dégâts de famine")]
     [SerializeField] private int starvationDamage = 1;
+
+    //[Header("Consommation en marchant")]
+    //[SerializeField] public float hungerPerSecondMoving = 0.05f;
 
     void Start()
     {
@@ -16,13 +19,11 @@ public class PlayerHunger : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
         if(Input.GetKeyDown(KeyCode.L))
         {
             LoseHunger(1);
-        }
-
-        
+        }   
     }
 
     void LoseHunger(int hunger)
@@ -67,4 +68,17 @@ public class PlayerHunger : MonoBehaviour
             playerHealth.TakeDamageFromStarvation(starvationDamage);
         }
     }
+
+//    public void LoseHungerOverTime(float hungerPerSecondMoving)
+//    {
+//        currentHunger -= hungerPerSecondMoving;
+//        if (currentHunger < 0)
+//            currentHunger = 0;
+//
+//        if (currentHunger == 0)
+//            ApplyStarvationDamage();
+//        
+//        if (hungerBar != null)
+//            hungerBar.UpdateHungerBar(currentHunger, maxHunger);
+//    }
 }
