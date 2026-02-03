@@ -29,7 +29,7 @@ public class RFIDManager : MonoBehaviour
     public bool C() => _C;
 
     private SerialPort GetActiveSerial()
-    {
+    {   
         PlayersManager pm = FindObjectOfType<PlayersManager>();
         if (pm == null) return null;
 
@@ -39,7 +39,7 @@ public class RFIDManager : MonoBehaviour
             case 1: return serial2;
             case 2: return serial3;
             case 3: return serial4;
-            default: return null;
+            default: return serial1;
         }
     }
 
@@ -76,7 +76,7 @@ public class RFIDManager : MonoBehaviour
             serial4 = new SerialPort(portName_m4, baudRate);
             serial4.ReadTimeout = 100;
             serial4.Open();
-            Debug.Log("Arduino 3 connecté");
+            Debug.Log("Arduino 4 connecté");
         }
         catch (Exception e)
         {

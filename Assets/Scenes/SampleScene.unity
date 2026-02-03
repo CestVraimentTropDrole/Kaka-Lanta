@@ -19543,9 +19543,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c80bcbd4f5389f4cb8c47949416bcee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName_m1: COM6
-  portName_m2: COM10
-  portName_m3: COM8
+  portName_m1: COM10
+  portName_m2: COM8
+  portName_m3: COM6
   portName_m4: COM11
   baudRate: 9600
 --- !u!4 &780980980
@@ -23604,6 +23604,7 @@ MonoBehaviour:
   spawnPoints: {fileID: 519420032}
   numberPlayers: 2
   currentPlayer: 0
+  hungerBar: {fileID: 0}
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}

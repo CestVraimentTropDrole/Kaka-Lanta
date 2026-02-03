@@ -37,9 +37,9 @@ public class HungerBar : MonoBehaviour
         }
     }
 
-//    public void UpdateHungerBar(float current, int max)
-//    {
-//        slider.maxValue = max;
-//        slider.value = current;
-//    }
+    public void UpdateHungerBar(float current, int max)
+    {
+        slider.maxValue = max;
+        slider.value = current;
+    }
 }
