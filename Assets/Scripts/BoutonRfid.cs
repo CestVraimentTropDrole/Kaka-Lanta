@@ -160,8 +160,8 @@ public class RFIDManager : MonoBehaviour
     public bool IsButtonPressed() => buttonJustPressed;
 
     public bool HasAxe()        => lastRFID == "RFID:O1";
-    public bool HasPioche()     => lastRFID == "RFID:O2";
-    public bool HasFishingRod() => lastRFID == "RFID:O3";
+    public bool HasPioche()     => lastRFID == "RFID:O3";
+    public bool HasFishingRod() => lastRFID == "RFID:O2";
     public bool HasHeart()      => lastRFID == "RFID:O4";
 
     public string GetLastRFID() => lastRFID;
