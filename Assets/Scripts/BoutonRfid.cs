@@ -31,7 +31,7 @@ public class RFIDManager : MonoBehaviour
     private SerialPort GetActiveSerial()
     {   
         PlayersManager pm = FindObjectOfType<PlayersManager>();
-        if (pm == null) return null;
+        if (pm == null) return serial1;
 
         switch (pm.currentPlayer)
         {

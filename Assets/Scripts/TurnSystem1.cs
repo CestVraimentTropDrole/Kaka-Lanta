@@ -71,9 +71,9 @@ public class TurnSystem : MonoBehaviour
         if (currentDay >= maxDays && !tempeteTriggered)
         {
             tempeteTriggered = true;
-            if (EventSystem.instance != null)
+            if (GameEventSystem.instance != null)
             {
-                EventSystem.instance.TempeteEvent();
+                GameEventSystem.instance.TempeteEvent();
                 Debug.Log("Event tempête en cours");
             }
         }
@@ -159,9 +159,9 @@ public class TurnSystem : MonoBehaviour
 
     private void OnTurnStart()
     {
-        if (EventSystem.instance != null)
+        if (GameEventSystem.instance != null)
         {
-            EventSystem.instance.OnTurnStart();
+            GameEventSystem.instance.OnTurnStart();
         }
     }
 

@@ -2,9 +2,9 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class EventSystem : MonoBehaviour
+public class GameEventSystem : MonoBehaviour
 {
-    public static EventSystem instance;
+    public static GameEventSystem instance;
 
     [Header("Configuration")]
     [SerializeField] private int minDaysBetweenEvents = 2;
