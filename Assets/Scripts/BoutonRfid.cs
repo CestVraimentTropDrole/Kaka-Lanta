@@ -30,7 +30,7 @@ public class RFIDManager : MonoBehaviour
 
     private SerialPort GetActiveSerial()
     {
-        PlayersManager pm = FindObjectOfType<PlayersManager>();
+        PlayersManager pm = FindFirstObjectByType<PlayersManager>();
         if (pm == null) return null;
 
         switch (pm.currentPlayer)
@@ -87,7 +87,7 @@ public class RFIDManager : MonoBehaviour
     void Update()
     {
         buttonJustPressed = false;
-        //_AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
+        _AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
 
         SerialPort activeSerial = GetActiveSerial();
 
