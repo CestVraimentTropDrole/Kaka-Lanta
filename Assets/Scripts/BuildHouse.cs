@@ -60,9 +60,17 @@ public class BuildingGhost : MonoBehaviour
         {
             Build();
             if (BuildSound != null)
-    {
-        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
+            
+                {
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = BuildSound;
+    audioSource.volume = 4f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+        Destroy(tempAudio, BuildSound.length);
     }
+
         }
         
         // Alternative: construction avec le bouton RFID

@@ -22,12 +22,7 @@ public class TreeMinigame : MonoBehaviour
     private int currentClicks = 0;
 
     [Header("Sound")]
-    public AudioClip StartSound;
-    public AudioClip SuccessSound;
     public AudioClip ChopSound;
-    public AudioClip AmbianceSound;
-    private AudioSource ambianceSource;
-
     void Start()
     {
         if (minigameUI != null)
@@ -40,20 +35,7 @@ public class TreeMinigame : MonoBehaviour
         {
             if (RFIDManager.instance.HasAxe() && RFIDManager.instance.IsButtonPressed())
             {
-                StartMinigame();
-                if (StartSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(StartSound, transform.position);
-                }
-                if (AmbianceSound != null)
-                {
-                    GameObject ambianceObj = new GameObject("AmbianceSound");
-                    ambianceSource = ambianceObj.AddComponent<AudioSource>();
-                    ambianceSource.clip = AmbianceSound;
-                    ambianceSource.loop = false; // PAS de boucle
-                    ambianceSource.volume = 0.05f;
-                 ambianceSource.Play();
-                }
+                StartMinigame();           
             }
         }
 
@@ -87,9 +69,15 @@ public class TreeMinigame : MonoBehaviour
             currentClicks++;
             currentProgress = currentClicks;
             if (ChopSound != null)
-            {
-                AudioSource.PlayClipAtPoint(ChopSound, transform.position);
-            }
+{
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = ChopSound;
+    audioSource.volume = 2f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+    Destroy(tempAudio, ChopSound.length);
+}
         }
 
         currentProgress -= decaySpeed * Time.deltaTime;
@@ -114,11 +102,7 @@ public class TreeMinigame : MonoBehaviour
         if (currentClicks >= clicksRequired)
         {
             SuccessMinigame();
-            if (SuccessSound != null)
-            {
-                AudioSource.PlayClipAtPoint(SuccessSound, transform.position);
-            }
-            StopAmbiance();
+
         }
 
         if (!playerInZone)
@@ -165,15 +149,6 @@ public class TreeMinigame : MonoBehaviour
         Destroy(gameObject);
     }
 
-     private void StopAmbiance()
-{
-    if (ambianceSource != null)
-    {
-        ambianceSource.Stop();
-        Destroy(ambianceSource.gameObject);
-        ambianceSource = null;
-    }
-}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

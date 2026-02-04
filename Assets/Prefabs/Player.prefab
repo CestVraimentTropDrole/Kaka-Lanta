@@ -107,8 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerNumber: 1
-  MoveSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
-  stepInterval: 0.5
+  MoveSound: {fileID: 0}
 --- !u!50 &7189000324880850360
 Rigidbody2D:
   serializedVersion: 5
