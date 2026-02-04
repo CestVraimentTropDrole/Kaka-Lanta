@@ -12,10 +12,10 @@ public class RFIDManager : MonoBehaviour
     [SerializeField] private string portName_m4 = "COM11";
     [SerializeField] private int baudRate = 9600;
 
-    private SerialPort serial1;
-    private SerialPort serial2;
-    private SerialPort serial3;
-    private SerialPort serial4;
+    public SerialPort serial1;
+    public SerialPort serial2;
+    public SerialPort serial3;
+    public SerialPort serial4;
 
     private string lastRFID = "";
     private bool buttonJustPressed = false;
@@ -29,9 +29,9 @@ public class RFIDManager : MonoBehaviour
     public bool C() => _C;
 
     private SerialPort GetActiveSerial()
-    {
-        PlayersManager pm = FindFirstObjectByType<PlayersManager>();
-        if (pm == null) return null;
+    {   
+        PlayersManager pm = FindObjectOfType<PlayersManager>();
+        if (pm == null) return serial1;
 
         switch (pm.currentPlayer)
         {
@@ -39,7 +39,7 @@ public class RFIDManager : MonoBehaviour
             case 1: return serial2;
             case 2: return serial3;
             case 3: return serial4;
-            default: return null;
+            default: return serial1;
         }
     }
 
@@ -76,7 +76,7 @@ public class RFIDManager : MonoBehaviour
             serial4 = new SerialPort(portName_m4, baudRate);
             serial4.ReadTimeout = 100;
             serial4.Open();
-            Debug.Log("Arduino 3 connecté");
+            Debug.Log("Arduino 4 connecté");
         }
         catch (Exception e)
         {
@@ -87,7 +87,7 @@ public class RFIDManager : MonoBehaviour
     void Update()
     {
         buttonJustPressed = false;
-        _AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
+        //_AL = _AR = _AU = _AD = _C = false; // Mettre en commentaire pour jouer avec les joysticks
 
         SerialPort activeSerial = GetActiveSerial();
 
@@ -160,11 +160,37 @@ public class RFIDManager : MonoBehaviour
     public bool IsButtonPressed() => buttonJustPressed;
 
     public bool HasAxe()        => lastRFID == "RFID:O1";
-    public bool HasPioche()     => lastRFID == "RFID:O2";
-    public bool HasFishingRod() => lastRFID == "RFID:O3";
+    public bool HasPioche()     => lastRFID == "RFID:O3";
+    public bool HasFishingRod() => lastRFID == "RFID:O2";
     public bool HasHeart()      => lastRFID == "RFID:O4";
 
     public string GetLastRFID() => lastRFID;
+
+    public bool IsButtonPressed(int playerIndex)
+    {
+        SerialPort sp = null;
+
+        switch (playerIndex)
+        {
+            case 0: sp = serial1; break;
+            case 1: sp = serial2; break;
+            case 2: sp = serial3; break;
+            case 3: sp = serial4; break;
+        }
+
+        if (sp == null || !sp.IsOpen || sp.BytesToRead <= 0)
+            return false;
+
+        try
+        {
+            string data = sp.ReadLine().Trim();
+            return data == "BTN:PRESSED";
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     void OnApplicationQuit()
     {

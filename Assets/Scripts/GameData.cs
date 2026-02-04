@@ -5,11 +5,17 @@ public class GameData : MonoBehaviour
 {
     public static GameData instance;
 
-    [Header("Game Info")]
-    public int numberPlayers = 2;
-    public int currentRound = 1;
-
-    [Header("Players Save Data")]
+    [Header("Configuration de la partie")]
+    public int numberPlayers = 2; // Nombre de joueurs
+    
+    [Header("Progression")]
+    public int currentRound = 1; // Jour actuel
+    
+    [Header("Récompenses mini-jeu")]
+    public int minigameWinnerPlayerIndex = -1; // Index du joueur gagnant (-1 = personne)
+    
+    [Header("Données des joueurs")]
+    public List<GameObject> listPlayers = new List<GameObject>(); // Liste pour stocker les joueurs
     public List<PlayerSaveData> playersSaveData = new List<PlayerSaveData>();
 
     void Awake()
@@ -17,59 +23,84 @@ public class GameData : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            Debug.LogWarning("GameData dupliqué détruit");
             return;
         }
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+        Debug.Log("✅ GameData créé et persistant");
     }
 
     public void SetNumberOfPlayers(int number)
     {
         numberPlayers = Mathf.Clamp(number, 2, 4);
-        Debug.Log("🎮 Nombre de joueurs : " + numberPlayers);
+        Debug.Log("Number of players set to: " + numberPlayers);
     }
 
     public void SetCurrentRound(int round)
     {
         currentRound = round;
-        Debug.Log("🔄 Tour actuel : " + currentRound);
+        Debug.Log("Current round set to: " + currentRound);
     }
 
-    // 🔹 SAUVEGARDE DES JOUEURS
     public void SavePlayers(List<GameObject> players)
     {
+        listPlayers = players;
         playersSaveData.Clear();
-
+        
         foreach (GameObject player in players)
         {
-            PlayerMovement movement = player.GetComponent<PlayerMovement>();
-
-            PlayerSaveData data = new PlayerSaveData
+            PlayerSaveData data = new PlayerSaveData();
+            
+            PlayerHunger hunger = player.GetComponent<PlayerHunger>();
+            PlayerHealth health = player.GetComponent<PlayerHealth>();
+            
+            if (hunger != null)
             {
-                playerNumber = movement.playerNumber,
-                position = player.transform.position
-            };
-
+                data.currentHunger = hunger.currentHunger;
+                data.maxHunger = hunger.maxHunger;
+            }
+            
+            if (health != null)
+            {
+                data.currentHealth = health.currentHealth;
+                data.maxHealth = health.maxHealth;
+            }
+            
             playersSaveData.Add(data);
         }
-
-        Debug.Log("💾 Joueurs sauvegardés : " + playersSaveData.Count);
+        
+        Debug.Log("💾 Données de " + players.Count + " joueurs sauvegardées");
     }
 
-    // 🔹 CHARGEMENT DES JOUEURS
     public void LoadPlayers(List<GameObject> players)
     {
-        for (int i = 0; i < playersSaveData.Count && i < players.Count; i++)
+        for (int i = 0; i < players.Count && i < playersSaveData.Count; i++)
         {
-            players[i].transform.position = playersSaveData[i].position;
+            PlayerSaveData data = playersSaveData[i];
+            
+            PlayerHunger hunger = players[i].GetComponent<PlayerHunger>();
+            PlayerHealth health = players[i].GetComponent<PlayerHealth>();
+            
+            if (hunger != null)
+            {
+                hunger.currentHunger = data.currentHunger;
+                hunger.maxHunger = data.maxHunger;
+            }
+            
+            if (health != null)
+            {
+                health.currentHealth = data.currentHealth;
+                health.maxHealth = data.maxHealth;
+            }
         }
-
-        Debug.Log("📂 Joueurs restaurés");
+        
+        Debug.Log("📂 Données de " + players.Count + " joueurs chargées");
     }
 
     public void ResetMinigameRewards()
     {
-        // Si tu en as besoin, sinon laisse vide
+        minigameWinnerPlayerIndex = -1;
     }
 }
