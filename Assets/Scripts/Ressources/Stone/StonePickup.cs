@@ -5,7 +5,7 @@ public class StonePickup : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private int stoneValue = 1;
 
-        [Header("Sound")]
+    [Header("Sound")]
     public AudioClip pickupSound;
 
     private bool playerInZone = false;
