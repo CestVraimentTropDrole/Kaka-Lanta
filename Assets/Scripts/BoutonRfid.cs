@@ -12,10 +12,10 @@ public class RFIDManager : MonoBehaviour
     [SerializeField] private string portName_m4 = "COM11";
     [SerializeField] private int baudRate = 9600;
 
-    private SerialPort serial1;
-    private SerialPort serial2;
-    private SerialPort serial3;
-    private SerialPort serial4;
+    public SerialPort serial1;
+    public SerialPort serial2;
+    public SerialPort serial3;
+    public SerialPort serial4;
 
     private string lastRFID = "";
     private bool buttonJustPressed = false;
@@ -165,6 +165,32 @@ public class RFIDManager : MonoBehaviour
     public bool HasHeart()      => lastRFID == "RFID:O4";
 
     public string GetLastRFID() => lastRFID;
+
+    public bool IsButtonPressed(int playerIndex)
+    {
+        SerialPort sp = null;
+
+        switch (playerIndex)
+        {
+            case 0: sp = serial1; break;
+            case 1: sp = serial2; break;
+            case 2: sp = serial3; break;
+            case 3: sp = serial4; break;
+        }
+
+        if (sp == null || !sp.IsOpen || sp.BytesToRead <= 0)
+            return false;
+
+        try
+        {
+            string data = sp.ReadLine().Trim();
+            return data == "BTN:PRESSED";
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     void OnApplicationQuit()
     {
