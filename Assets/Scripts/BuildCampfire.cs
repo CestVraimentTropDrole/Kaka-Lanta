@@ -62,10 +62,16 @@ public class BuildCampfire : MonoBehaviour
         if (canBuild && Input.GetKeyDown(KeyCode.E))
         {
             Build();
-            if (BuildSound != null)
-    {
-        AudioSource.PlayClipAtPoint(BuildSound, transform.position);
-    }
+if (BuildSound != null)
+{
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = BuildSound;
+    audioSource.volume = 2f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+    Destroy(tempAudio, BuildSound.length);
+}
         }
         
         if (canBuild && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())

@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   woodValue: 1
+  PickupSound: {fileID: 8300000, guid: 8eb2a6c45138f1047b550b99b8d03495, type: 3}

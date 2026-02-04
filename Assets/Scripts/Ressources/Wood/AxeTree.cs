@@ -16,6 +16,8 @@ public class TreeMinigame : MonoBehaviour
     [SerializeField] private Slider progressBar;
     [SerializeField] private Image fillImage;
     
+    [Header("Sound")]
+    public AudioClip ChopSound;
     private bool playerInZone = false;
     private bool minigameActive = false;
     private float currentProgress = 0f;
@@ -65,6 +67,16 @@ public class TreeMinigame : MonoBehaviour
         {
             currentClicks++;
             currentProgress = currentClicks;
+            if (ChopSound != null)
+{
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = ChopSound;
+    audioSource.volume = 2f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+    Destroy(tempAudio, ChopSound.length);
+}
         }
 
         currentProgress -= decaySpeed * Time.deltaTime;

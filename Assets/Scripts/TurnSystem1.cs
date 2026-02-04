@@ -33,9 +33,6 @@ public class TurnSystem : MonoBehaviour
     private bool playerInHouse = false;
     private bool playerNearCampfire = false;
 
-    [Header("Sound")]
-    public AudioClip turnStartSound;
-    public AudioClip turnEndSound;
 
     void Awake()
     {
@@ -88,8 +85,6 @@ public class TurnSystem : MonoBehaviour
 
         Debug.Log($"Tour {currentTurn} commence !");
 
-        GetComponent<AudioSource>().PlayOneShot(turnStartSound);
-
         OnTurnStart();
     }
 
@@ -100,8 +95,6 @@ public class TurnSystem : MonoBehaviour
         turnActive = false;
 
         Debug.Log($"Tour {currentTurn} terminé !");
-    
-        GetComponent<AudioSource>().PlayOneShot(turnEndSound);
 
         OnTurnEnd();
 

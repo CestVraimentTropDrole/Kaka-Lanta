@@ -156,3 +156,4 @@ MonoBehaviour:
   minigameUI: {fileID: 0}
   progressBar: {fileID: 0}
   fillImage: {fileID: 0}
+  ChopSound: {fileID: 8300000, guid: 6cee4f28a9c1ffe4e81212801894bb1c, type: 3}

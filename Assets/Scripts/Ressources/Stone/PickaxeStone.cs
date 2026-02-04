@@ -24,6 +24,9 @@ public class StoneMinigame : MonoBehaviour
     private bool movingRight = true;
     private int successfulHits = 0;
 
+     [Header("Sound")]
+    public AudioClip FailSound;
+
     void Start()
     {
         if (minigameUI != null)
@@ -126,6 +129,16 @@ public class StoneMinigame : MonoBehaviour
             {
                 successZoneImage.color = Color.green;
                 Invoke(nameof(ResetZoneColor), 0.2f);
+                if (FailSound != null)
+{
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = FailSound;
+    audioSource.volume = 2f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+    Destroy(tempAudio, FailSound.length);
+}
             }
             
             if (successfulHits >= successfulHitsRequired)

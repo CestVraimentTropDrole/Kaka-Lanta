@@ -5,6 +5,8 @@ public class WoodPickup : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private int woodValue = 1;
 
+    [Header("Sound")]
+    public AudioClip PickupSound;
     private bool playerInZone = false;
 
     void Update()
@@ -12,6 +14,16 @@ public class WoodPickup : MonoBehaviour
         if (playerInZone && RFIDManager.instance != null && RFIDManager.instance.IsButtonPressed())
         {
             PickupWood();
+            if (PickupSound != null)
+{
+    GameObject tempAudio = new GameObject("TempAudio");
+    tempAudio.transform.position = transform.position;
+    AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+    audioSource.clip = PickupSound;
+    audioSource.volume = 2f; // Définis le volume AVANT de jouer
+    audioSource.Play();
+    Destroy(tempAudio, PickupSound.length);
+}
         }
     }
     
