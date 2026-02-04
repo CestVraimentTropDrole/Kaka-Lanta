@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameData : MonoBehaviour
 {
-    public static GameData instance;
+    public static GameData instance;    // Déclaration en Instance
     public int numberPlayers = 2;   // Nombre de joueurs
     public int currentRound = 1;    // Tour actuel
     public List<GameObject> listPlayers = new List<GameObject>();  // Liste pour stocker les joueurs
