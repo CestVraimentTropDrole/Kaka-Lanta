@@ -819,6 +819,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire
       objectReference: {fileID: 0}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1270,6 +1274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -1725,6 +1733,7 @@ MonoBehaviour:
   minigameUI: {fileID: 1237694284}
   progressBar: {fileID: 1859599500}
   fillImage: {fileID: 1709726657}
+  ChopSound: {fileID: 8300000, guid: 6cee4f28a9c1ffe4e81212801894bb1c, type: 3}
 --- !u!61 &224704720
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3050,6 +3059,7 @@ MonoBehaviour:
   indicatorImage: {fileID: 407536071}
   successZoneImage: {fileID: 73982768}
   successZoneSize: 0.2
+  FailSound: {fileID: 8300000, guid: 01f9ce8807360074dbd5d54ef1f09f01, type: 3}
 --- !u!61 &358909402
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5461,6 +5471,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5599,6 +5610,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
+--- !u!82 &519420034
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4e61307abd18b7448a7165574df1e6c9, type: 2}
+  m_audioClip: {fileID: 8300000, guid: f30872b42928a934b91f8aa06a46e1b4, type: 3}
+  m_Resource: {fileID: 8300000, guid: f30872b42928a934b91f8aa06a46e1b4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.261
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &526497985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69041,8 +69149,6 @@ MonoBehaviour:
   campfireHungerReduction: 0.25
   totalPlayers: 0
   currentDay: 1
-  turnStartSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
-  turnEndSound: {fileID: 8300000, guid: 1553c4a0f9bc7714cacc37a6d8815c2b, type: 3}
 --- !u!4 &627056643
 Transform:
   m_ObjectHideFlags: 0
@@ -69935,6 +70041,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -111695,6 +111805,7 @@ MonoBehaviour:
   minigameUI: {fileID: 1237694284}
   progressBar: {fileID: 1859599500}
   fillImage: {fileID: 1709726657}
+  ChopSound: {fileID: 8300000, guid: 6cee4f28a9c1ffe4e81212801894bb1c, type: 3}
 --- !u!61 &1008721550
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -111979,6 +112090,7 @@ MonoBehaviour:
   minigameUI: {fileID: 1237694284}
   progressBar: {fileID: 1859599500}
   fillImage: {fileID: 1709726657}
+  ChopSound: {fileID: 8300000, guid: 6cee4f28a9c1ffe4e81212801894bb1c, type: 3}
 --- !u!61 &1057087845
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112990,6 +113102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickupSound: {fileID: 8300000, guid: 8eb2a6c45138f1047b550b99b8d03495, type: 3}
 --- !u!61 &1146432300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113934,6 +114047,7 @@ MonoBehaviour:
   minigameUI: {fileID: 1237694284}
   progressBar: {fileID: 1859599500}
   fillImage: {fileID: 1709726657}
+  ChopSound: {fileID: 8300000, guid: 6cee4f28a9c1ffe4e81212801894bb1c, type: 3}
 --- !u!61 &1259997547
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -114109,6 +114223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 42.8
@@ -115641,7 +115759,7 @@ MonoBehaviour:
   canBuildColor: {r: 0, g: 1, b: 0, a: 0.5}
   cannotBuildColor: {r: 1, g: 0, b: 0, a: 0.5}
   RaftisBuilt: 0
-  BuildSound: {fileID: 8300000, guid: e176505fbc84c8c46b34408293a6df29, type: 3}
+  BuildSound: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
 --- !u!82 &1367664510
 AudioSource:
   m_ObjectHideFlags: 0
@@ -116052,6 +116170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -116460,6 +116582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2101eb8d3945dd54d82ff94ad6d92c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickupSound: {fileID: 8300000, guid: 8eb2a6c45138f1047b550b99b8d03495, type: 3}
 --- !u!61 &1452814568
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -117120,6 +117243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -118612,6 +118739,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.77
@@ -119513,6 +119644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -119820,6 +119955,7 @@ MonoBehaviour:
   indicatorImage: {fileID: 407536071}
   successZoneImage: {fileID: 73982768}
   successZoneSize: 0.2
+  FailSound: {fileID: 8300000, guid: 01f9ce8807360074dbd5d54ef1f09f01, type: 3}
 --- !u!61 &1776589088
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120028,6 +120164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.8
@@ -120373,6 +120513,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildCampfire (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9016655451865802093, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
+    - target: {fileID: 9016655451865802093, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -120691,6 +120839,7 @@ MonoBehaviour:
   spawnPoints: {fileID: 519420032}
   numberPlayers: 2
   currentPlayer: 0
+  hungerBar: {fileID: 0}
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
@@ -120790,6 +120939,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.091303825
@@ -121818,6 +121971,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildHouse (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.3
@@ -122598,6 +122755,7 @@ MonoBehaviour:
   indicatorImage: {fileID: 407536071}
   successZoneImage: {fileID: 73982768}
   successZoneSize: 0.2
+  FailSound: {fileID: 8300000, guid: 01f9ce8807360074dbd5d54ef1f09f01, type: 3}
 --- !u!61 &2132392393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -123211,6 +123369,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1267666539}
     - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
+    - target: {fileID: 6259421870656893739, guid: b620b648ffa2f0c4a999ec32a4dba26f, type: 3}
       propertyPath: costWoodText
       value: 
       objectReference: {fileID: 681733452}
@@ -123357,6 +123519,10 @@ PrefabInstance:
       propertyPath: costText
       value: 
       objectReference: {fileID: 1679299367}
+    - target: {fileID: 5049177725349526649, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
+      propertyPath: BuildSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c6a6c03c0de5bc49bea23f8554e03ea, type: 3}
     - target: {fileID: 7800156204551514929, guid: c30b206ac3fb8a74f8d586be18f4a737, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.4
